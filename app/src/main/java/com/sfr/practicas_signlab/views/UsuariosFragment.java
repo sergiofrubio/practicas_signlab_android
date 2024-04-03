@@ -75,10 +75,6 @@ public class UsuariosFragment extends Fragment implements UsuariosFragmentInt{
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        initInjection();
-
-        usuariospresenter.onUsersFetched();
-
     }
 
     @Override
@@ -87,11 +83,12 @@ public class UsuariosFragment extends Fragment implements UsuariosFragmentInt{
         // Utilizamos el objeto de ViewBinding para inflar el diseño
         binding = FragmentUsuariosBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
+        initInjection();
         recyclerView = binding.recyclerView; // Accedemos a las vistas a través del objeto de ViewBinding
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         showLoading();
+        usuariospresenter.onUsersFetched();
         adapter = new UsuariosAdapter();
         recyclerView.setAdapter(adapter);
 

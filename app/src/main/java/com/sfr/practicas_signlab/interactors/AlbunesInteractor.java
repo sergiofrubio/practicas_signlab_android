@@ -13,9 +13,10 @@ import retrofit2.Response;
 
 public class AlbunesInteractor implements AlbunesInteractorInt{
 
-
+    @Inject
     WsApi wsApi;
 
+    @Inject
     public AlbunesInteractor(){}
 
 

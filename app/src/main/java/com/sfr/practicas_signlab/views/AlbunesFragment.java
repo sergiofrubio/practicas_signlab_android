@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link UsuariosFragment#newInstance} factory method to
+ * Use the {@link AlbunesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class AlbunesFragment extends Fragment implements AlbunesFragmentInt{
@@ -51,9 +51,9 @@ public class AlbunesFragment extends Fragment implements AlbunesFragmentInt{
 
 
     private RecyclerView recyclerView;
-    // private AlbunesAdapter adapter;
+    private AlbunesAdapter adapter;
     private FragmentAlbunesBinding binding;
-
+    @Inject
     AlbunesPresenterInt albunespresenter;
 
     public static AlbunesFragment newInstance(String param1, String param2) {
@@ -87,9 +87,9 @@ public class AlbunesFragment extends Fragment implements AlbunesFragmentInt{
 
 
         showLoading();
-        // albunespresenter.onAlbumsFetched();
-        // adapter = new AlbunesAdapter();
-        // recyclerView.setAdapter(adapter);
+        albunespresenter.onAlbumsFetched();
+        adapter = new AlbunesAdapter();
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -108,8 +108,8 @@ public class AlbunesFragment extends Fragment implements AlbunesFragmentInt{
     public void showAlbums(ArrayList<Album> albums) {
         hideLoading();
         // Pasar los datos al adaptador
-        // adapter.setAlbunes(albums);
-        // adapter.notifyDataSetChanged();
+        adapter.setAlbums(albums);
+        adapter.notifyDataSetChanged();
     }
 
 

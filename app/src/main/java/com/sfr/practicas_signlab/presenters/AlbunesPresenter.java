@@ -13,12 +13,14 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 public class AlbunesPresenter implements AlbunesPresenterInt, AlbunesInteractorInt.OnGetAlbumsCallBacks, AlbunesInteractorInt.OnErrorServer {
-
+    @Nullable
+    @Inject
     AlbunesFragmentInt view;
 
+    @Inject
     AlbunesInteractorInt albunesinteractor;
 
-
+    @Inject
     public AlbunesPresenter(){}
 
     @Override
