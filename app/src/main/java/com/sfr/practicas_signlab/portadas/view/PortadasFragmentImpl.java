@@ -10,17 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sfr.practicas_signlab.R;
 import com.sfr.practicas_signlab.api.Models.Photo;
 import com.sfr.practicas_signlab.databinding.FragmentPortadasBinding;
-import com.sfr.practicas_signlab.databinding.FragmentUsuariosBinding;
 import com.sfr.practicas_signlab.di.appComponent.AppComponent;
 import com.sfr.practicas_signlab.di.appComponent.DaggerAppComponent;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.ConnectionModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
+import com.sfr.practicas_signlab.portadas.adapters.PortadasAdapter;
 import com.sfr.practicas_signlab.portadas.presenter.PortadasPresenter;
-import com.sfr.practicas_signlab.usuarios.view.UsuariosAdapter;
 
 import java.util.ArrayList;
 
@@ -115,13 +113,17 @@ public class PortadasFragmentImpl extends Fragment implements PortadasFragment {
 
     private void showLoading() {
         // Mostrar el TextView y el ProgressBar
-        binding.textViewLoading.setVisibility(View.VISIBLE);
-        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.LinearLayoutLoading.setVisibility(View.VISIBLE);
+        binding.LinearLayoutPortada.setVisibility(View.GONE);
+        // binding.textViewLoading.setVisibility(View.VISIBLE);
+        // binding.progressBar.setVisibility(View.VISIBLE);
     }
 
     private void hideLoading() {
         // Ocultar el TextView y el ProgressBar
-        binding.textViewLoading.setVisibility(View.GONE);
-        binding.progressBar.setVisibility(View.GONE);
+        binding.LinearLayoutLoading.setVisibility(View.GONE);
+        binding.LinearLayoutPortada.setVisibility(View.VISIBLE);
+        // binding.textViewLoading.setVisibility(View.GONE);
+        // binding.progressBar.setVisibility(View.GONE);
     }
 }

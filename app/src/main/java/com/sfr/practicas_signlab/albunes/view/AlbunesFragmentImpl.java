@@ -115,14 +115,18 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
 
     private void showLoading() {
         // Mostrar el TextView y el ProgressBar
-        binding.textViewLoading.setVisibility(View.VISIBLE);
-        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.LinearLayoutLoading.setVisibility(View.VISIBLE);
+        binding.LinearLayoutAlbum.setVisibility(View.GONE);
+        // binding.textViewLoading.setVisibility(View.VISIBLE);
+        // binding.progressBar.setVisibility(View.VISIBLE);
     }
 
     private void hideLoading() {
         // Ocultar el TextView y el ProgressBar
-        binding.textViewLoading.setVisibility(View.GONE);
-        binding.progressBar.setVisibility(View.GONE);
+        binding.LinearLayoutLoading.setVisibility(View.GONE);
+        binding.LinearLayoutAlbum.setVisibility(View.VISIBLE);
+        // binding.textViewLoading.setVisibility(View.GONE);
+        // binding.progressBar.setVisibility(View.GONE);
     }
 
 }

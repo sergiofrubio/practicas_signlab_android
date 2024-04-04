@@ -29,13 +29,13 @@ public class UsuariosPresenterImpl implements UsuariosPresenter, UsuariosInterac
 
     @Override
     public void onSuccessCallBacks(ArrayList<User> users) {
-        Log.i("respuesta", String.valueOf(users));
+        //Log.i("respuesta", String.valueOf(users));
         usuariosview.showUsers(users);
     }
 
     @Override
     public void onErrorCallBacks(int code) {
-        Log.e("respuesta erronea", ""+code);
+        //Log.e("respuesta erronea", ""+code);
 
     }
 

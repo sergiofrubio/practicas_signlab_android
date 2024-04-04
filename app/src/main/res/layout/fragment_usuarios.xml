@@ -5,27 +5,41 @@
     android:layout_height="match_parent"
     tools:context=".usuarios.view.UsuariosFragmentImpl">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <!-- Centrar el TextView y el ProgressBar -->
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/LinearLayoutUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
 
         <!-- Texto -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Barra de progreso -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
         <TextView
             android:id="@+id/textViewLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cargando..."
-            android:visibility="visible" />
+            android:visibility="gone"
+            tools:visibility="gone" />
 
-        <!-- Barra de progreso -->
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -33,6 +47,6 @@
             android:layout_height="wrap_content"
             android:visibility="visible"
             tools:visibility="visible" />
-
     </LinearLayout>
+
 </FrameLayout>

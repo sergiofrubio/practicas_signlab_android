@@ -31,14 +31,14 @@ public class PortadasPresenterImpl implements PortadasPresenter, PortadasInterac
 
     @Override
     public void onSuccessCallBacks(ArrayList<Photo> photos) {
-        Log.i("respuesta", String.valueOf(photos));
+        //Log.i("respuesta", String.valueOf(photos));
         portadasview.showPhotos(photos);
 
     }
 
     @Override
     public void onErrorCallBacks(int code) {
-        Log.e("respuesta erronea", ""+code);
+        //Log.e("respuesta erronea", ""+code);
 
     }
 

@@ -5,27 +5,85 @@
     android:layout_height="match_parent"
     tools:context=".albunes.view.AlbunesFragmentImpl">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <!-- Centrar el TextView y el ProgressBar -->
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/LinearLayoutAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
 
         <!-- Texto -->
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:text="Seleccione un usuario:" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:text="Seleccione un álbum:" />
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="LISTADO DE ÁLBUNES"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Álbunes:"
+            android:textAlignment="textEnd" />
+
+        <!-- Barra de progreso -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
         <TextView
             android:id="@+id/textViewLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cargando..."
-            android:visibility="visible" />
+            android:visibility="gone"
+            tools:visibility="gone" />
 
-        <!-- Barra de progreso -->
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -33,6 +91,6 @@
             android:layout_height="wrap_content"
             android:visibility="visible"
             tools:visibility="visible" />
-
     </LinearLayout>
+
 </FrameLayout>

@@ -1,7 +1,10 @@
 package com.sfr.practicas_signlab.albunes.view;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,11 +14,12 @@ import com.sfr.practicas_signlab.databinding.ItemAlbumBinding;
 
 import java.util.ArrayList;
 
-public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumViewHolder> {
+public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumViewHolder> implements Filterable {
     private ArrayList<Album> albums;
 
     public void setAlbums(ArrayList<Album> albums) {
         this.albums = albums;
+        Log.i("albums", String.valueOf(albums));
     }
 
     @NonNull
@@ -35,6 +39,23 @@ public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumVie
     @Override
     public int getItemCount() {
         return albums != null ? albums.size() : 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+        Filter filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                return null;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            }
+        };
+
+        return null;
     }
 
     public static class AlbumViewHolder extends RecyclerView.ViewHolder {

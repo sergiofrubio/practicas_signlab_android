@@ -30,13 +30,13 @@ public class AlbunesPresenterImpl implements AlbunesPresenter, AlbunesInteractor
 
     @Override
     public void onSuccessCallBacks(ArrayList<Album> albums) {
-        Log.i("respuesta", String.valueOf(albums));
+        // Log.i("respuesta", String.valueOf(albums));
         view.showAlbums(albums);
     }
 
     @Override
     public void onErrorCallBacks(int code) {
-        Log.e("respuesta erronea", ""+code);
+        // Log.e("respuesta erronea", ""+code);
 
     }
 

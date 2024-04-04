@@ -15,6 +15,7 @@ import com.sfr.practicas_signlab.di.appComponent.DaggerAppComponent;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.ConnectionModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
+import com.sfr.practicas_signlab.usuarios.adapters.UsuariosAdapter;
 import com.sfr.practicas_signlab.usuarios.presenter.UsuariosPresenter;
 
 import java.util.ArrayList;
@@ -117,13 +118,17 @@ public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment {
 
     private void showLoading() {
         // Mostrar el TextView y el ProgressBar
-        binding.textViewLoading.setVisibility(View.VISIBLE);
-        binding.progressBar.setVisibility(View.VISIBLE);
+        binding.LinearLayoutLoading.setVisibility(View.VISIBLE);
+        binding.LinearLayoutUsuario.setVisibility(View.GONE);
+        // binding.textViewLoading.setVisibility(View.VISIBLE);
+        // binding.progressBar.setVisibility(View.VISIBLE);
     }
 
     private void hideLoading() {
         // Ocultar el TextView y el ProgressBar
-        binding.textViewLoading.setVisibility(View.GONE);
-        binding.progressBar.setVisibility(View.GONE);
+        binding.LinearLayoutLoading.setVisibility(View.GONE);
+        binding.LinearLayoutUsuario.setVisibility(View.VISIBLE);
+        // binding.textViewLoading.setVisibility(View.GONE);
+        // binding.progressBar.setVisibility(View.GONE);
     }
 }

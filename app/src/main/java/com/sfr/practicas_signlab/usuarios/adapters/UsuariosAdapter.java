@@ -1,4 +1,4 @@
-package com.sfr.practicas_signlab.usuarios.view;
+package com.sfr.practicas_signlab.usuarios.adapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

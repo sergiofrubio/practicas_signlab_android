@@ -1,4 +1,4 @@
-package com.sfr.practicas_signlab.portadas.view;
+package com.sfr.practicas_signlab.portadas.adapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sfr.practicas_signlab.api.Models.Photo;
 import com.sfr.practicas_signlab.databinding.ItemPhotoBinding;
-import com.sfr.practicas_signlab.databinding.ItemUserBinding;
 
 import java.util.ArrayList;
 
