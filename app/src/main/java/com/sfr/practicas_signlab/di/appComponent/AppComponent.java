@@ -1,13 +1,14 @@
 package com.sfr.practicas_signlab.di.appComponent;
 
-import com.sfr.practicas_signlab.MainActivity;
+import com.sfr.practicas_signlab.main.view.MainActivity;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
-import com.sfr.practicas_signlab.views.AlbunesFragment;
-import com.sfr.practicas_signlab.views.HomeActivity;
-import com.sfr.practicas_signlab.views.LoginActivity;
-import com.sfr.practicas_signlab.views.PortadasFragment;
-import com.sfr.practicas_signlab.views.UsuariosFragment;
+import com.sfr.practicas_signlab.albunes.view.AlbunesFragmentImpl;
+import com.sfr.practicas_signlab.home.view.HomeActivity;
+import com.sfr.practicas_signlab.login.view.LoginActivity;
+import com.sfr.practicas_signlab.portadas.view.PortadasFragmentImpl;
+import com.sfr.practicas_signlab.usuarios.view.UsuariosFragmentImpl;
+
 import javax.inject.Singleton;
 import dagger.Component;
 
@@ -20,9 +21,9 @@ public interface AppComponent {
 
     void inject(HomeActivity homeactivity);
 
-    void inject(AlbunesFragment albunesfragment);
+    void inject(AlbunesFragmentImpl albunesfragment);
 
-    void inject(PortadasFragment portadasfragment);
+    void inject(PortadasFragmentImpl portadasfragment);
 
-    void inject(UsuariosFragment usuariosfragment);
+    void inject(UsuariosFragmentImpl usuariosfragment);
 }

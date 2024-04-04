@@ -2,42 +2,44 @@ package com.sfr.practicas_signlab.di.appModule;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
-import com.sfr.practicas_signlab.MainActivity;
-import com.sfr.practicas_signlab.interactors.AlbunesInteractorInt;
-import com.sfr.practicas_signlab.interactors.LoginInteractor;
-import com.sfr.practicas_signlab.interactors.LoginInteractorInt;
-import com.sfr.practicas_signlab.interactors.PortadasInteractorInt;
-import com.sfr.practicas_signlab.interactors.UsuariosInteractor;
-import com.sfr.practicas_signlab.interactors.UsuariosInteractorInt;
-import com.sfr.practicas_signlab.presenters.AlbunesPresenter;
-import com.sfr.practicas_signlab.presenters.AlbunesPresenterInt;
-import com.sfr.practicas_signlab.presenters.LoginPresenterInt;
-import com.sfr.practicas_signlab.presenters.PortadasPresenter;
-import com.sfr.practicas_signlab.presenters.PortadasPresenterInt;
-import com.sfr.practicas_signlab.presenters.UsuariosPresenter;
-import com.sfr.practicas_signlab.presenters.UsuariosPresenterInt;
-import com.sfr.practicas_signlab.views.AlbunesFragment;
-import com.sfr.practicas_signlab.views.AlbunesFragmentInt;
-import com.sfr.practicas_signlab.views.LoginViewInt;
-import com.sfr.practicas_signlab.MainViewInt;
-import com.sfr.practicas_signlab.presenters.LoginPresenter;
-import com.sfr.practicas_signlab.views.HomeActivity;
-import com.sfr.practicas_signlab.views.LoginActivity;
-import com.sfr.practicas_signlab.views.PortadasFragment;
-import com.sfr.practicas_signlab.views.PortadasFragmentInt;
-import com.sfr.practicas_signlab.views.UsuariosFragment;
-import com.sfr.practicas_signlab.views.UsuariosFragmentInt;
+import com.sfr.practicas_signlab.main.view.MainActivity;
+import com.sfr.practicas_signlab.main.view.MainView;
+import com.sfr.practicas_signlab.albunes.interactor.AlbunesInteractorImpl;
+import com.sfr.practicas_signlab.albunes.interactor.AlbunesInteractor;
+import com.sfr.practicas_signlab.login.interactor.LoginInteractorImpl;
+import com.sfr.practicas_signlab.login.interactor.LoginInteractor;
+import com.sfr.practicas_signlab.portadas.interactor.PortadasInteractorImpl;
+import com.sfr.practicas_signlab.portadas.interactor.PortadasInteractor;
+import com.sfr.practicas_signlab.usuarios.interactor.UsuariosInteractorImpl;
+import com.sfr.practicas_signlab.usuarios.interactor.UsuariosInteractor;
+import com.sfr.practicas_signlab.albunes.presenter.AlbunesPresenter;
+import com.sfr.practicas_signlab.albunes.presenter.AlbunesPresenterImpl;
+import com.sfr.practicas_signlab.login.presenter.LoginPresenter;
+import com.sfr.practicas_signlab.portadas.presenter.PortadasPresenter;
+import com.sfr.practicas_signlab.portadas.presenter.PortadasPresenterImpl;
+import com.sfr.practicas_signlab.usuarios.presenter.UsuariosPresenterImpl;
+import com.sfr.practicas_signlab.usuarios.presenter.UsuariosPresenter;
+import com.sfr.practicas_signlab.albunes.view.AlbunesFragmentImpl;
+import com.sfr.practicas_signlab.albunes.view.AlbunesFragment;
+import com.sfr.practicas_signlab.login.view.LoginView;
+import com.sfr.practicas_signlab.login.presenter.LoginPresenterImpl;
+import com.sfr.practicas_signlab.home.view.HomeActivity;
+import com.sfr.practicas_signlab.login.view.LoginActivity;
+import com.sfr.practicas_signlab.portadas.view.PortadasFragment;
+import com.sfr.practicas_signlab.portadas.view.PortadasFragmentImpl;
+import com.sfr.practicas_signlab.usuarios.view.UsuariosFragmentImpl;
+import com.sfr.practicas_signlab.usuarios.view.UsuariosFragment;
 import dagger.Module;
 import dagger.Provides;
 
 @Module(includes = {SharedPreferencesModule.class, ConnectionModule.class})
 public class AppModule {
-    private AlbunesFragment albunesfragment;
-    private PortadasFragment portadasfragment;
+    private AlbunesFragmentImpl albunesfragment;
+    private PortadasFragmentImpl portadasfragment;
     private LoginActivity loginactivity;
     private MainActivity mainactivity;
     private HomeActivity homeactivity;
-    private UsuariosFragment usuariosfragment;
+    private UsuariosFragmentImpl usuariosfragment;
     private Context context;
 
 
@@ -61,17 +63,17 @@ public class AppModule {
 
     }
 
-    public AppModule(UsuariosFragment usuariosfragment, Context context) {
+    public AppModule(UsuariosFragmentImpl usuariosfragment, Context context) {
         this.usuariosfragment = usuariosfragment;
         this.context = context;
     }
 
-    public AppModule(AlbunesFragment albunesfragment, Context context) {
+    public AppModule(AlbunesFragmentImpl albunesfragment, Context context) {
         this.albunesfragment = albunesfragment;
         this.context = context;
     }
 
-    public AppModule(PortadasFragment portadasfragment, Context context) {
+    public AppModule(PortadasFragmentImpl portadasfragment, Context context) {
         this.portadasfragment = portadasfragment;
         this.context = context;
     }
@@ -80,7 +82,7 @@ public class AppModule {
     // Un método de estos por cada vista
     @Nullable
     @Provides
-    public LoginViewInt loginactivity() {
+    public LoginView loginactivity() {
         if(loginactivity != null){
             return loginactivity;
         }
@@ -89,7 +91,7 @@ public class AppModule {
 
     @Nullable
     @Provides
-    public MainViewInt mainactivity() {
+    public MainView mainactivity() {
         if(mainactivity != null){
             return mainactivity;
         }
@@ -98,7 +100,7 @@ public class AppModule {
 
     @Nullable
     @Provides
-    public UsuariosFragmentInt usuariosfragment() {
+    public UsuariosFragment usuariosfragment() {
         if (usuariosfragment != null){
             return usuariosfragment;
         }
@@ -108,7 +110,7 @@ public class AppModule {
 
     @Nullable
     @Provides
-    public AlbunesFragmentInt albunesfragment() {
+    public AlbunesFragment albunesfragment() {
         if(albunesfragment!=null){
             return albunesfragment;
 
@@ -118,7 +120,7 @@ public class AppModule {
 
     @Nullable
     @Provides
-    public PortadasFragmentInt portadasfragment() {
+    public PortadasFragment portadasfragment() {
         if(portadasfragment!=null){
             return portadasfragment;
 
@@ -127,42 +129,42 @@ public class AppModule {
     }
 
     @Provides
-    public LoginPresenterInt providesLoginPresenterImpl(LoginPresenter presenter) {
+    public LoginPresenter providesLoginPresenterImpl(LoginPresenterImpl presenter) {
         return presenter;
     }
 
     @Provides
-    public UsuariosPresenterInt providesUsuariosFragmentInt(UsuariosPresenter presenter){
+    public UsuariosPresenter providesUsuariosPresenterImpl(UsuariosPresenterImpl presenter){
         return presenter;
     }
 
     @Provides
-    public PortadasPresenterInt providesPortadasFragmentInt(PortadasPresenter presenter){
+    public PortadasPresenter providesPortadasPresenterImpl(PortadasPresenterImpl presenter){
         return presenter;
     }
 
     @Provides
-    public AlbunesPresenterInt providesAlbunesFragmentInt(AlbunesPresenter presenter){
+    public AlbunesPresenter providesAlbunesPresenterImpl(AlbunesPresenterImpl presenter){
         return presenter;
     }
 
     @Provides
-    public LoginInteractorInt providesLoginInteractorImpl(LoginInteractor interactor) {
+    public LoginInteractor providesLoginInteractorImpl(LoginInteractorImpl interactor) {
         return interactor;
     }
 
     @Provides
-    public UsuariosInteractorInt providesUsuariosInteractorInt(UsuariosInteractor interactor){
+    public UsuariosInteractor providesUsuariosInteractorImpl(UsuariosInteractorImpl interactor){
         return interactor;
     }
 
     @Provides
-    public PortadasInteractorInt providesPortadasInteractorInt(PortadasInteractorInt interactor){
+    public PortadasInteractor providesPortadasInteractorImpl(PortadasInteractorImpl interactor){
         return interactor;
     }
 
     @Provides
-    public AlbunesInteractorInt providesAlbunesInteractorInt(AlbunesInteractorInt interactor){
+    public AlbunesInteractor providesAlbunesInteractorImpl(AlbunesInteractorImpl interactor){
         return interactor;
     }
 
