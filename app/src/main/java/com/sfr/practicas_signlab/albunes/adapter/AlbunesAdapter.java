@@ -1,25 +1,24 @@
-package com.sfr.practicas_signlab.albunes.view;
+package com.sfr.practicas_signlab.albunes.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.sfr.practicas_signlab.api.Models.Album;
+import com.sfr.practicas_signlab.api.Models.User;
 import com.sfr.practicas_signlab.databinding.ItemAlbumBinding;
-
 import java.util.ArrayList;
 
 public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumViewHolder> implements Filterable {
     private ArrayList<Album> albums;
+    private ArrayList<Album> albumsFiltered; // Lista filtrada para mostrar los resultados
 
     public void setAlbums(ArrayList<Album> albums) {
         this.albums = albums;
-        Log.i("albums", String.valueOf(albums));
+        this.albumsFiltered = albums;
     }
 
     @NonNull
@@ -31,14 +30,13 @@ public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumVie
 
     @Override
     public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
-        Album album = albums.get(position);
-        // Configurar vistas con datos de usuario
-        holder.bind(album);
+        holder.bind(albumsFiltered.get(position));
     }
+
 
     @Override
     public int getItemCount() {
-        return albums != null ? albums.size() : 0;
+        return albumsFiltered != null ? albumsFiltered.size() : 0;
     }
 
     @Override
@@ -46,16 +44,38 @@ public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumVie
         Filter filter = new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                return null;
+                FilterResults results = new FilterResults();
+
+                if (constraint == null || constraint.length() == 0) {
+                    // Si no hay restricciones, mostrar la lista original
+                    results.values = albums;
+                    results.count = albums.size();
+                } else {
+                    ArrayList<Album> filteredList = new ArrayList<>();
+                    String filterPattern = constraint.toString().toLowerCase().trim();
+
+                    for (Album album : albums) {
+                        if (album.getTitle().toLowerCase().contains(filterPattern)) {
+                            filteredList.add(album);
+                        }
+                    }
+
+                    results.values = filteredList;
+                    results.count = filteredList.size();
+                }
+
+                return results;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
+                albumsFiltered = (ArrayList<Album>) results.values;
+                notifyDataSetChanged();
 
             }
         };
 
-        return null;
+        return filter;
     }
 
     public static class AlbumViewHolder extends RecyclerView.ViewHolder {
@@ -67,8 +87,7 @@ public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumVie
         }
 
         public void bind(Album album) {
-            binding.textViewId.setText(album.getId());
-            binding.textViewAlbumId.setText(album.getUserId());
+            binding.textViewId.setText(album.getUserId());
             binding.textViewTitle.setText(album.getTitle());
             // Puedes configurar más vistas aquí
         }

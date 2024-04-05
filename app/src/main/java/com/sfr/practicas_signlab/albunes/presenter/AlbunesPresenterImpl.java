@@ -1,18 +1,14 @@
 package com.sfr.practicas_signlab.albunes.presenter;
 
-import android.util.Log;
-
 import androidx.annotation.Nullable;
-
 import com.sfr.practicas_signlab.api.Models.Album;
 import com.sfr.practicas_signlab.albunes.interactor.AlbunesInteractor;
 import com.sfr.practicas_signlab.albunes.view.AlbunesFragment;
-
+import com.sfr.practicas_signlab.api.Models.User;
 import java.util.ArrayList;
-
 import javax.inject.Inject;
 
-public class AlbunesPresenterImpl implements AlbunesPresenter, AlbunesInteractor.OnGetAlbumsCallBacks, AlbunesInteractor.OnErrorServer {
+public class AlbunesPresenterImpl implements AlbunesPresenter, AlbunesInteractor.OnGetAlbumsCallBacks, AlbunesInteractor.OnGetUsersCallBacks, AlbunesInteractor.OnErrorServer {
     @Nullable
     @Inject
     AlbunesFragment view;
@@ -26,12 +22,25 @@ public class AlbunesPresenterImpl implements AlbunesPresenter, AlbunesInteractor
     @Override
     public void onAlbumsFetched() {
         albunesinteractor.getAlbumsFromApi(this, this);
+        albunesinteractor.getUsersFromApi((AlbunesInteractor.OnGetUsersCallBacks) this, this);
     }
 
     @Override
-    public void onSuccessCallBacks(ArrayList<Album> albums) {
+    public void onAlbumSuccessCallBacks(ArrayList<Album> albums) {
         // Log.i("respuesta", String.valueOf(albums));
         view.showAlbums(albums);
+    }
+
+    @Override
+    public void onAlbumErrorCallBacks(int code) {
+
+    }
+
+
+    @Override
+    public void onSuccessCallBacks(ArrayList<User> users) {
+        view.showUser(users);
+
     }
 
     @Override

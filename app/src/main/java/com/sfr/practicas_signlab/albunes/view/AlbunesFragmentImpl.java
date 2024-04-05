@@ -1,12 +1,19 @@
 package com.sfr.practicas_signlab.albunes.view;
+import com.sfr.practicas_signlab.albunes.adapter.AlbunesAdapter;
+import com.sfr.practicas_signlab.api.Models.User;
 import com.sfr.practicas_signlab.di.appComponent.DaggerAppComponent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.SearchView;
+
 import com.sfr.practicas_signlab.api.Models.Album;
 import com.sfr.practicas_signlab.databinding.FragmentAlbunesBinding;
 import com.sfr.practicas_signlab.di.appComponent.AppComponent;
@@ -14,6 +21,8 @@ import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.ConnectionModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
 import com.sfr.practicas_signlab.albunes.presenter.AlbunesPresenter;
+import com.sfr.practicas_signlab.usuarios.presenter.UsuariosPresenter;
+import com.sfr.practicas_signlab.usuarios.view.UsuariosFragment;
 
 import java.util.ArrayList;
 
@@ -55,6 +64,8 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
     private FragmentAlbunesBinding binding;
     @Inject
     AlbunesPresenter albunespresenter;
+    @Inject
+    UsuariosPresenter usuariospresenter;
 
     public static AlbunesFragmentImpl newInstance(String param1, String param2) {
         AlbunesFragmentImpl fragment = new AlbunesFragmentImpl();
@@ -88,8 +99,26 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
 
         showLoading();
         albunespresenter.onAlbumsFetched();
+        //usuariospresenter.onUsersFetched();
+        //setupSpinner(usuarios);
+
         adapter = new AlbunesAdapter();
         recyclerView.setAdapter(adapter);
+
+        binding.txtBuscar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // No necesitas hacer nada aquí, ya que estamos filtrando en tiempo real
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Cuando el texto cambia en el SearchView, aplicar el filtro
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
 
         return view;
     }
@@ -110,6 +139,24 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
         // Pasar los datos al adaptador
         adapter.setAlbums(albums);
         adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void showUser(ArrayList<User> users) {
+        // Crear un ArrayList de nombres de usuarios
+        ArrayList<String> nombresUsuarios = new ArrayList<>();
+        for (User usuario : users) {
+            nombresUsuarios.add(usuario.getName());
+        }
+
+        // Crear un adaptador para el Spinner
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, nombresUsuarios);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Configurar el adaptador para el Spinner
+        binding.spinner.setAdapter(spinnerAdapter);
+
     }
 
 

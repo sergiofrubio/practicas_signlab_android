@@ -5,25 +5,18 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewAlbumId"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="4dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginBottom="4dp"/>
-
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp"
+        android:textSize="14sp" />
 
 </LinearLayout>

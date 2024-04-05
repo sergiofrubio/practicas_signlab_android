@@ -1,7 +1,9 @@
 package com.sfr.practicas_signlab.albunes.interactor;
 
 import com.sfr.practicas_signlab.api.Models.Album;
+import com.sfr.practicas_signlab.api.Models.User;
 import com.sfr.practicas_signlab.api.wsApi.WsApi;
+import com.sfr.practicas_signlab.usuarios.interactor.UsuariosInteractor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,9 +28,9 @@ public class AlbunesInteractorImpl implements AlbunesInteractor {
             @Override
             public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
                 if(response.isSuccessful()){
-                    callBacks.onSuccessCallBacks(new ArrayList<Album>(response.body()));
+                    callBacks.onAlbumSuccessCallBacks(new ArrayList<Album>(response.body()));
                 }else{
-                    callBacks.onErrorCallBacks(response.code());
+                    callBacks.onAlbumErrorCallBacks(response.code());
                 }
             }
 
@@ -38,5 +40,27 @@ public class AlbunesInteractorImpl implements AlbunesInteractor {
             }
         });
     }
+
+    @Override
+    public void getUsersFromApi(OnGetUsersCallBacks callBack, OnErrorServer errorServer) {
+        wsApi.getAllUsers().enqueue(new Callback<List<User>>() {
+
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if(response.isSuccessful()){
+                    callBack.onSuccessCallBacks(new ArrayList<User>(response.body()));
+                }else{
+                    callBack.onErrorCallBacks(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                errorServer.errorServerMessage(Arrays.toString(t.getStackTrace()));
+            }
+        });
+    }
+
+
 }
 
