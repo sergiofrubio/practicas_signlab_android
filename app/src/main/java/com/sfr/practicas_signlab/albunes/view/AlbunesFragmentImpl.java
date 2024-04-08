@@ -128,23 +128,23 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
 
     public void filtrarUsuarios(String selectedUserName){
         // Pasar los datos al adaptador
-
-        for (User user: users) {
-            if (selectedUserName == user.getName()) {
-                userFilter = user.getId();
-            }
-        }
         ArrayList<Album> albumsAMostrar = new ArrayList<>();
 
-        if (userFilter!= 0) {
+        if(selectedUserName == "Todos los usuarios"){
+            albumsAMostrar.addAll(albums);
+        }else {
+            for (User user: users) {
+                if (selectedUserName == user.getName()) {
+                    userFilter = user.getId();
+                }
+            }
+
             for (Album album : albums) {
                 if (userFilter == Integer.parseInt(album.getUserId())) {
                     albumsAMostrar.add(album);
                 }
             }
 
-        }else{
-            albumsAMostrar.addAll(albums);
         }
 
         userFilter = 0;
