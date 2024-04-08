@@ -1,6 +1,5 @@
 package com.sfr.practicas_signlab.albunes.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -15,10 +14,15 @@ import java.util.ArrayList;
 public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumViewHolder> implements Filterable {
     private ArrayList<Album> albums;
     private ArrayList<Album> albumsFiltered; // Lista filtrada para mostrar los resultados
+    private static ArrayList<User> users; // Lista de usuarios
 
     public void setAlbums(ArrayList<Album> albums) {
         this.albums = albums;
         this.albumsFiltered = albums;
+    }
+
+    public void setUsers(ArrayList<User> users){
+        this.users=users;
     }
 
     @NonNull
@@ -78,6 +82,7 @@ public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumVie
         return filter;
     }
 
+
     public static class AlbumViewHolder extends RecyclerView.ViewHolder {
         ItemAlbumBinding binding;
 
@@ -89,7 +94,13 @@ public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumVie
         public void bind(Album album) {
             binding.textViewId.setText(album.getUserId());
             binding.textViewTitle.setText(album.getTitle());
-            // Puedes configurar más vistas aquí
+
+            for (User user : users) {
+                if (user.getId() == Integer.parseInt(album.getUserId())) {
+                    binding.textViewId.setText(user.getName());
+                    break;
+                }
+            }
         }
     }
 }

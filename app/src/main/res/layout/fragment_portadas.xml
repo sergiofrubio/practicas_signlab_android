@@ -20,7 +20,7 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:text="LISTADO DE FOTOS"
             android:textAlignment="center"
             android:textSize="16sp"
@@ -31,13 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Total Álbunes:"
-            android:textAlignment="textEnd" />
-
         <!-- Barra de progreso -->
 
     </LinearLayout>
@@ -46,8 +39,8 @@
         android:id="@+id/LinearLayoutLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewLoading"

@@ -1,4 +1,5 @@
 package com.sfr.practicas_signlab.albunes.view;
+
 import com.sfr.practicas_signlab.albunes.adapter.AlbunesAdapter;
 import com.sfr.practicas_signlab.api.Models.User;
 import com.sfr.practicas_signlab.di.appComponent.DaggerAppComponent;
@@ -6,14 +7,13 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
-
 import com.sfr.practicas_signlab.api.Models.Album;
 import com.sfr.practicas_signlab.databinding.FragmentAlbunesBinding;
 import com.sfr.practicas_signlab.di.appComponent.AppComponent;
@@ -22,46 +22,22 @@ import com.sfr.practicas_signlab.di.appModule.ConnectionModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
 import com.sfr.practicas_signlab.albunes.presenter.AlbunesPresenter;
 import com.sfr.practicas_signlab.usuarios.presenter.UsuariosPresenter;
-import com.sfr.practicas_signlab.usuarios.view.UsuariosFragment;
-
 import java.util.ArrayList;
-
 import javax.inject.Inject;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AlbunesFragmentImpl#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public AlbunesFragmentImpl() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UsuariosFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-
-
     private RecyclerView recyclerView;
     private AlbunesAdapter adapter;
     private FragmentAlbunesBinding binding;
+    private String albumFilter;
+    private int userFilter;
+    private ArrayList<User> users;
+    private ArrayList<Album> albums;
+
     @Inject
     AlbunesPresenter albunespresenter;
     @Inject
@@ -69,26 +45,19 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
 
     public static AlbunesFragmentImpl newInstance(String param1, String param2) {
         AlbunesFragmentImpl fragment = new AlbunesFragmentImpl();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle("Álbunes");
         // Utilizamos el objeto de ViewBinding para inflar el diseño
         binding = FragmentAlbunesBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
@@ -115,8 +84,25 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 // Cuando el texto cambia en el SearchView, aplicar el filtro
+                //albumFilter = newText;
+                //adapter.setFilterAlbum(albumFilter);
+                //adapter.notifyDataSetChanged();
                 adapter.getFilter().filter(newText);
                 return true;
+            }
+        });
+
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Cuando se selecciona un usuario en el Spinner, aplicar el filtro
+                String selectedUserName = (String) parentView.getItemAtPosition(position);
+                filtrarUsuarios(selectedUserName);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
             }
         });
 
@@ -136,16 +122,47 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
     @Override
     public void showAlbums(ArrayList<Album> albums) {
         hideLoading();
+        this.albums = albums;
+
+    }
+
+    public void filtrarUsuarios(String selectedUserName){
         // Pasar los datos al adaptador
-        adapter.setAlbums(albums);
+
+        for (User user: users) {
+            if (selectedUserName == user.getName()) {
+                userFilter = user.getId();
+            }
+        }
+        ArrayList<Album> albumsAMostrar = new ArrayList<>();
+
+        if (userFilter!= 0) {
+            for (Album album : albums) {
+                if (userFilter == Integer.parseInt(album.getUserId())) {
+                    albumsAMostrar.add(album);
+                }
+            }
+
+        }else{
+            albumsAMostrar.addAll(albums);
+        }
+
+        userFilter = 0;
+        adapter.setAlbums(albumsAMostrar);
         adapter.notifyDataSetChanged();
 
     }
 
     @Override
     public void showUser(ArrayList<User> users) {
+        this.users = users;
+
+        adapter.setUsers(users);
+        adapter.notifyDataSetChanged();
+
         // Crear un ArrayList de nombres de usuarios
         ArrayList<String> nombresUsuarios = new ArrayList<>();
+        nombresUsuarios.add("Todos los usuarios");
         for (User usuario : users) {
             nombresUsuarios.add(usuario.getName());
         }
@@ -164,16 +181,14 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
         // Mostrar el TextView y el ProgressBar
         binding.LinearLayoutLoading.setVisibility(View.VISIBLE);
         binding.LinearLayoutAlbum.setVisibility(View.GONE);
-        // binding.textViewLoading.setVisibility(View.VISIBLE);
-        // binding.progressBar.setVisibility(View.VISIBLE);
+
     }
 
     private void hideLoading() {
         // Ocultar el TextView y el ProgressBar
         binding.LinearLayoutLoading.setVisibility(View.GONE);
         binding.LinearLayoutAlbum.setVisibility(View.VISIBLE);
-        // binding.textViewLoading.setVisibility(View.GONE);
-        // binding.progressBar.setVisibility(View.GONE);
+
     }
 
 }

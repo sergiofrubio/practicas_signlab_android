@@ -81,6 +81,7 @@ public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle("Usuarios");
         // Utilizamos el objeto de ViewBinding para inflar el diseño
         binding = FragmentUsuariosBinding.inflate(inflater, container, false);
         View view = binding.getRoot();

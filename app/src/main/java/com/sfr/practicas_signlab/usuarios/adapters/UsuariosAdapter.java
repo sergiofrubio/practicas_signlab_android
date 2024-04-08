@@ -47,8 +47,10 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
 
         public void bind(User user) {
             binding.textViewName.setText(user.getName());
-            binding.textViewUsername.setText(String.valueOf(user.getUsername()));
-            // Puedes configurar más vistas aquí
+            binding.textViewId.setText("ID: "+user.getId());
+            binding.textViewUsername.setText(user.getUsername());
+            binding.textViewName.setText(user.getEmail());
+
         }
     }
 }

@@ -2,13 +2,11 @@ package com.sfr.practicas_signlab.portadas.adapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.sfr.practicas_signlab.api.Models.Photo;
 import com.sfr.practicas_signlab.databinding.ItemPhotoBinding;
-
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class PortadasAdapter extends RecyclerView.Adapter<PortadasAdapter.PortadaViewHolder> {
@@ -47,7 +45,9 @@ public class PortadasAdapter extends RecyclerView.Adapter<PortadasAdapter.Portad
 
         public void bind(Photo photo) {
             binding.textViewAlbumId.setText(photo.getAlbumId());
-            // binding.textViewUsername.setText(String.valueOf(user.getUsername()));
+            Picasso.get().load(photo.getUrl()).into(binding.imageView);
+            binding.textViewId.setText(String.valueOf(photo.getId()));
+            binding.textViewTitle.setText(photo.getTitle());
             // Puedes configurar más vistas aquí
         }
     }

@@ -80,6 +80,7 @@ public class PortadasFragmentImpl extends Fragment implements PortadasFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle("Portadas");
         // Utilizamos el objeto de ViewBinding para inflar el diseño
         binding = FragmentPortadasBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
