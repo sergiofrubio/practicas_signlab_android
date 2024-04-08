@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             public void onClick(View v) {
                 String username = Objects.requireNonNull(binding.editTextUsername.getText()).toString();
                 String password = Objects.requireNonNull(binding.editTextPassword.getText()).toString();
-                presenter.checkCredentials(username, password);
+;                presenter.checkCredentials(username, password);
             }
         });
     }

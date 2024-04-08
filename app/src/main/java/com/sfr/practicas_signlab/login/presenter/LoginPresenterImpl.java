@@ -1,6 +1,8 @@
 package com.sfr.practicas_signlab.login.presenter;
 
 import android.content.SharedPreferences;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import com.sfr.practicas_signlab.main.view.MainView;
@@ -43,6 +45,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnGet
         // Obtener el nombre de usuario y contraseña (con valores por defecto vacíos)
         String username = sharedPreferences.getString("username", "");
         String password = sharedPreferences.getString("password", "");
+        Log.i("shp", username + password);
         checkCredentials(username, password);
     }
 
