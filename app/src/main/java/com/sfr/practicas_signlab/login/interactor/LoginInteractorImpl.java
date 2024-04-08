@@ -3,8 +3,8 @@ package com.sfr.practicas_signlab.login.interactor;
 import javax.inject.Inject;
 
 public class LoginInteractorImpl implements LoginInteractor {
-    private static final String CORRECT_USERNAME = "sergiofrubio@gmail.com";
-    private static final String CORRECT_PASSWORD = "6649";
+    private static final String CORRECT_USERNAME = "user";
+    private static final String CORRECT_PASSWORD = "user";
     @Inject
     public LoginInteractorImpl() {}
 
