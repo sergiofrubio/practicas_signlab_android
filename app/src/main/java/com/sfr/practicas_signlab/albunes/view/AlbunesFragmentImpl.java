@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,9 +83,6 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 // Cuando el texto cambia en el SearchView, aplicar el filtro
-                //albumFilter = newText;
-                //adapter.setFilterAlbum(albumFilter);
-                //adapter.notifyDataSetChanged();
                 adapter.getFilter().filter(newText);
                 return true;
             }
