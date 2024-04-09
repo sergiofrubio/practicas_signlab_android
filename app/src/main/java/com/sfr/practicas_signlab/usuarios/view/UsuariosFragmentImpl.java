@@ -121,15 +121,13 @@ public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment {
         // Mostrar el TextView y el ProgressBar
         binding.LinearLayoutLoading.setVisibility(View.VISIBLE);
         binding.LinearLayoutUsuario.setVisibility(View.GONE);
-        // binding.textViewLoading.setVisibility(View.VISIBLE);
-        // binding.progressBar.setVisibility(View.VISIBLE);
+
     }
 
     private void hideLoading() {
         // Ocultar el TextView y el ProgressBar
         binding.LinearLayoutLoading.setVisibility(View.GONE);
         binding.LinearLayoutUsuario.setVisibility(View.VISIBLE);
-        // binding.textViewLoading.setVisibility(View.GONE);
-        // binding.progressBar.setVisibility(View.GONE);
+
     }
 }

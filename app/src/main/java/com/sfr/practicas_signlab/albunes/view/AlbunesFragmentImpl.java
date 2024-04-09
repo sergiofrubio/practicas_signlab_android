@@ -32,8 +32,6 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
     private RecyclerView recyclerView;
     private AlbunesAdapter adapter;
     private FragmentAlbunesBinding binding;
-    private String albumFilter;
-    private int userFilter;
     private ArrayList<User> users;
     private ArrayList<Album> albums;
 
@@ -64,11 +62,8 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
         recyclerView = binding.recyclerView; // Accedemos a las vistas a través del objeto de ViewBinding
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-
         showLoading();
         albunespresenter.onAlbumsFetched();
-        //usuariospresenter.onUsersFetched();
-        //setupSpinner(usuarios);
 
         adapter = new AlbunesAdapter();
         recyclerView.setAdapter(adapter);
@@ -93,7 +88,17 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // Cuando se selecciona un usuario en el Spinner, aplicar el filtro
                 String selectedUserName = (String) parentView.getItemAtPosition(position);
-                filtrarUsuarios(selectedUserName);
+
+                if ("Todos los usuarios".equals(selectedUserName)) {
+                    adapter.setAlbums(albums);
+                } else {
+                    int userId = getUserIdByName(selectedUserName);
+                    ArrayList<Album> filteredAlbums = filterAlbumsByUser(userId);
+                    adapter.setAlbums(filteredAlbums);
+                }
+
+                adapter.getFilter().filter(binding.txtBuscar.getQuery().toString().toLowerCase());
+
             }
 
             @Override
@@ -114,45 +119,37 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
         appComponent.inject(this);
     }
 
+    private int getUserIdByName(String userName) {
+        for (User user : users) {
+            if (userName.equals(user.getName())) {
+                return user.getId();
+            }
+        }
+        return 0; // Devuelve 0 si no se encuentra el usuario
+    }
+
+    private ArrayList<Album> filterAlbumsByUser(int userId) {
+        ArrayList<Album> filteredAlbums = new ArrayList<>();
+        for (Album album : albums) {
+            if (Integer.parseInt(album.getUserId()) == userId) {
+                filteredAlbums.add(album);
+            }
+        }
+        return filteredAlbums;
+    }
+
 
     @Override
     public void showAlbums(ArrayList<Album> albums) {
         hideLoading();
         this.albums = albums;
-
-    }
-
-    public void filtrarUsuarios(String selectedUserName){
-        // Pasar los datos al adaptador
-        ArrayList<Album> albumsAMostrar = new ArrayList<>();
-
-        if(selectedUserName == "Todos los usuarios"){
-            albumsAMostrar.addAll(albums);
-        }else {
-            for (User user: users) {
-                if (selectedUserName == user.getName()) {
-                    userFilter = user.getId();
-                }
-            }
-
-            for (Album album : albums) {
-                if (userFilter == Integer.parseInt(album.getUserId())) {
-                    albumsAMostrar.add(album);
-                }
-            }
-
-        }
-
-        userFilter = 0;
-        adapter.setAlbums(albumsAMostrar);
-        adapter.notifyDataSetChanged();
+        adapter.setAlbums(albums);
 
     }
 
     @Override
     public void showUser(ArrayList<User> users) {
         this.users = users;
-
         adapter.setUsers(users);
         adapter.notifyDataSetChanged();
 

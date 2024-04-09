@@ -12,7 +12,7 @@ import com.sfr.practicas_signlab.databinding.ItemAlbumBinding;
 import java.util.ArrayList;
 
 public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumViewHolder> implements Filterable {
-    private ArrayList<Album> albums;
+    private ArrayList<Album> albums; // Lista con todos los albunes
     private ArrayList<Album> albumsFiltered; // Lista filtrada para mostrar los resultados
     private static ArrayList<User> users; // Lista de usuarios
 
@@ -36,7 +36,6 @@ public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumVie
     public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
         holder.bind(albumsFiltered.get(position));
     }
-
 
     @Override
     public int getItemCount() {
@@ -81,7 +80,6 @@ public class AlbunesAdapter extends RecyclerView.Adapter<AlbunesAdapter.AlbumVie
 
         return filter;
     }
-
 
     public static class AlbumViewHolder extends RecyclerView.ViewHolder {
         ItemAlbumBinding binding;
