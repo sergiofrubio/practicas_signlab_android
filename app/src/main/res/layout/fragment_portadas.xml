@@ -5,16 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".portadas.view.PortadasFragmentImpl">
 
-    <!-- Centrar el TextView y el ProgressBar -->
-
     <LinearLayout
         android:id="@+id/LinearLayoutPortada"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
-
-        <!-- Texto -->
 
         <TextView
             android:id="@+id/textView6"
@@ -30,8 +26,6 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <!-- Barra de progreso -->
 
     </LinearLayout>
 

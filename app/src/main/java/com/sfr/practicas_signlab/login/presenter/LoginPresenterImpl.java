@@ -50,14 +50,14 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnGet
     }
 
 
-    @Override
+/*    @Override
     public void checkCredentials(String username, String password, LoginInteractor.OnGetLoginCallBacks callBacks) {
         if (!username.isEmpty() && !password.isEmpty()) {
             interactor.checkCredentials(username, password, this);
         } else {
             mainview.onReedirigiraLoginActivity();
         }
-    }
+    }*/
 
     @Override
     public void onSuccessCredentials(String username, String password) {
@@ -73,6 +73,8 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnGet
     public void onErrorCredentials() {
         if (loginview !=null) {
             loginview.onLoginCheck("Error al loggearse", false);
+        }else{
+            mainview.onReedirigiraLoginActivity();
         }
     }
 }

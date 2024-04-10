@@ -96,7 +96,6 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
                     ArrayList<Album> filteredAlbums = filterAlbumsByUser(userId);
                     adapter.setAlbums(filteredAlbums);
                 }
-
                 adapter.getFilter().filter(binding.txtBuscar.getQuery().toString().toLowerCase());
 
             }
@@ -144,6 +143,7 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
         hideLoading();
         this.albums = albums;
         adapter.setAlbums(albums);
+        adapter.notifyDataSetChanged();
 
     }
 
