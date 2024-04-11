@@ -1,7 +1,5 @@
 package com.sfr.practicas_signlab.usuarios.adapters;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +9,13 @@ import com.sfr.practicas_signlab.api.Models.User;
 import com.sfr.practicas_signlab.databinding.ItemUserBinding;
 import java.util.ArrayList;
 
-public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.UsuarioViewHolder> {
+public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.UsuarioViewHolder>{
     private ArrayList<User> users;
+    private OnItemClickListener itemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(User user);
+    }
 
     public void setUsers(ArrayList<User> users) {
         this.users = users;
@@ -25,23 +28,24 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
         return new UsuarioViewHolder(binding);
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
+    }
+
+
     @Override
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         User user = users.get(position);
         holder.bind(user);
 
-/*        // Configura el OnClickListener para el elemento
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // Obtén el usuario correspondiente al elemento clicado
-                User clickedUser = users.get(position);
-                // Inicia la actividad DetalleUsuarioActivity con el usuario correspondiente
-                Intent intent = new Intent(requireContext(this), DetalleUsuarioActivity.class);
-                intent.putExtra("user", clickedUser); // Puedes pasar el usuario a la actividad
-                context.startActivity(intent);
+            public void onClick(View v) {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClick(user);
+                }
             }
-        });*/
+        });
     }
 
     @Override

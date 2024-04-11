@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class PortadasFragmentImpl extends Fragment implements PortadasFragment, 
     private FragmentPortadasBinding binding;
     @Inject
     PortadasPresenter portadaspresenter;
-    public static PortadasFragmentImpl newInstance(String param1, String param2) {
+    public static PortadasFragmentImpl newInstance() {
         PortadasFragmentImpl fragment = new PortadasFragmentImpl();
         return fragment;
     }
@@ -58,8 +59,7 @@ public class PortadasFragmentImpl extends Fragment implements PortadasFragment, 
         recyclerView = binding.recyclerView; // Accedemos a las vistas a través del objeto de ViewBinding
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        // Mostrar el SwipeRefreshLayout para que el ProgressBar sea visible
-        //binding.swipe.setRefreshing(true);
+        binding.swipe.setOnRefreshListener(this);
 
         showLoading();
         portadaspresenter.onPhotosFetched();
@@ -84,7 +84,6 @@ public class PortadasFragmentImpl extends Fragment implements PortadasFragment, 
         adapter.notifyDataSetChanged();
 
         // Ocultar el SwipeRefreshLayout una vez que se han cargado las fotos
-        //binding.swipe.setRefreshing(false);
 
     }
 
@@ -105,6 +104,7 @@ public class PortadasFragmentImpl extends Fragment implements PortadasFragment, 
     @Override
     public void onRefresh() {
         portadaspresenter.onPhotosFetched();
+        binding.swipe.setRefreshing(false);
 
     }
 }

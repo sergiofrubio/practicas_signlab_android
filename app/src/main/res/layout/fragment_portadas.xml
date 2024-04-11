@@ -5,44 +5,46 @@
     android:layout_height="match_parent"
     tools:context=".portadas.view.PortadasFragmentImpl">
 
-    <LinearLayout
-        android:id="@+id/LinearLayoutPortada"
+    <TextView
+        android:id="@+id/textView6"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="LISTADO DE FOTOS"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView6"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutPortada"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="LISTADO DE FOTOS"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp" />
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:id="@+id/LinearLayoutLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textViewLoading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cargando..."
-            android:visibility="gone"
-            tools:visibility="gone" />
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <ProgressBar
             android:id="@+id/progressBar"

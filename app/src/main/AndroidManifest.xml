@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".login.view.LoginActivity"></activity>
         <activity android:name=".home.view.HomeActivity"></activity>
+        <activity android:name=".detalleusuario.view.DetalleUsuario" />
+
     </application>
 
 </manifest>

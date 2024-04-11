@@ -34,13 +34,12 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
     private FragmentAlbunesBinding binding;
     private ArrayList<User> users;
     private ArrayList<Album> albums;
-
     @Inject
     AlbunesPresenter albunespresenter;
     @Inject
     UsuariosPresenter usuariospresenter;
 
-    public static AlbunesFragmentImpl newInstance(String param1, String param2) {
+    public static AlbunesFragmentImpl newInstance() {
         AlbunesFragmentImpl fragment = new AlbunesFragmentImpl();
         return fragment;
     }
