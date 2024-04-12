@@ -6,5 +6,7 @@ public class Constantes {
     public static final String GET_ALBUMS = "albums/";
     public static final String GET_PHOTOS = "photos/";
     public static final String GET_POSTS = "posts/";
+    public static final String GET_TODOS = "todos/";
+
 
 }

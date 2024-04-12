@@ -1,9 +1,12 @@
 package com.sfr.practicas_signlab.api.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Company {
+public class Company implements Parcelable {
     @SerializedName("name")
     @Expose
     private String name;
@@ -38,5 +41,36 @@ public class Company {
 
     public void setBs(String bs) {
         this.bs = bs;
+    }
+
+    // Implementación de Parcelable
+    protected Company(Parcel in) {
+        name = in.readString();
+        catchPhrase = in.readString();
+        bs = in.readString();
+    }
+
+    public static final Creator<Company> CREATOR = new Creator<Company>() {
+        @Override
+        public Company createFromParcel(Parcel in) {
+            return new Company(in);
+        }
+
+        @Override
+        public Company[] newArray(int size) {
+            return new Company[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(catchPhrase);
+        dest.writeString(bs);
     }
 }

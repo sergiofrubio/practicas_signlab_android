@@ -7,50 +7,50 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sfr.practicas_signlab.api.Models.Photo;
+import com.sfr.practicas_signlab.api.Models.Post;
 import com.sfr.practicas_signlab.databinding.ItemPhotoBinding;
+import com.sfr.practicas_signlab.databinding.ItemPostBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PortadaViewHolder> {
-    private ArrayList<Photo> photos;
+public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
+    private ArrayList<Post> posts;
 
-    public void setPhotos(ArrayList<Photo> photos) {
-        this.photos = photos;
+    public void setPosts(ArrayList<Post> posts) {
+        this.posts = posts;
     }
 
     @NonNull
     @Override
-    public PortadaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemPhotoBinding binding = ItemPhotoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new PortadaViewHolder(binding);
+    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemPostBinding binding = ItemPostBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new PostViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PortadaViewHolder holder, int position) {
-        Photo photo = photos.get(position);
+    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+        Post post = posts.get(position);
         // Configurar vistas con datos de usuario
-        holder.bind(photo);
+        holder.bind(post);
     }
 
     @Override
     public int getItemCount() {
-        return photos != null ? photos.size() : 0;
+        return posts != null ? posts.size() : 0;
     }
 
-    public static class PortadaViewHolder extends RecyclerView.ViewHolder {
-        ItemPhotoBinding binding;
+    public static class PostViewHolder extends RecyclerView.ViewHolder {
+        ItemPostBinding binding;
 
-        public PortadaViewHolder(@NonNull ItemPhotoBinding itemPhotoBinding) {
-            super(itemPhotoBinding.getRoot());
-            binding = itemPhotoBinding;
+        public PostViewHolder(@NonNull ItemPostBinding itemPostBinding) {
+            super(itemPostBinding.getRoot());
+            binding = itemPostBinding;
         }
 
-        public void bind(Photo photo) {
-            binding.textViewAlbumId.setText(photo.getAlbumId());
-            Picasso.get().load(photo.getUrl()).into(binding.imageView);
-            binding.textViewId.setText(String.valueOf(photo.getId()));
-            binding.textViewTitle.setText(photo.getTitle());
+        public void bind(Post post) {
+            binding.textViewTitle.setText(post.getTitle());
+            binding.textViewBody.setText(post.getBody());
             // Puedes configurar más vistas aquí
         }
     }

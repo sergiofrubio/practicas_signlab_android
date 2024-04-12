@@ -1,9 +1,14 @@
 package com.sfr.practicas_signlab.api.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User{
+public class User implements Parcelable {
     @SerializedName("id")
     @Expose
     private int id;
@@ -111,4 +116,48 @@ public class User{
     public void setGeo(Geo geo) {
         this.geo = geo;
     }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(username);
+        dest.writeString(email);
+        dest.writeString(phone);
+        dest.writeString(website);
+        dest.writeParcelable(address, flags);
+        dest.writeParcelable(geo, flags);
+        dest.writeParcelable(company, flags);
+    }
+
+    protected User(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        username = in.readString();
+        email = in.readString();
+        phone = in.readString();
+        website = in.readString();
+        address = in.readParcelable(Address.class.getClassLoader());
+        geo = in.readParcelable(Geo.class.getClassLoader());
+        company = in.readParcelable(Company.class.getClassLoader());
+    }
+
 }
+

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment, UsuariosAdapter.OnItemClickListener {
+public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment, UsuariosAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     public UsuariosFragmentImpl() {
         // Required empty public constructor
     }
@@ -59,10 +61,11 @@ public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment, 
         recyclerView = binding.recyclerView; // Accedemos a las vistas a través del objeto de ViewBinding
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        binding.swipe.setOnRefreshListener(this);
+
         showLoading();
         usuariospresenter.onUsersFetched();
         adapter = new UsuariosAdapter();
-
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
 
@@ -106,7 +109,16 @@ public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment, 
 
     @Override
     public void onItemClick(User user) {
-        startActivity(new Intent(requireContext(), DetalleUsuario.class));
+        Intent intent = new Intent(requireContext(), DetalleUsuario.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onRefresh() {
+        usuariospresenter.onUsersFetched();
+        binding.swipe.setRefreshing(false);
 
     }
 }

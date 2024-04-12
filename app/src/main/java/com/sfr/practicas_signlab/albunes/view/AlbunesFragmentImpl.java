@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,7 @@ import com.sfr.practicas_signlab.usuarios.presenter.UsuariosPresenter;
 import java.util.ArrayList;
 import javax.inject.Inject;
 
-public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
+public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment, SwipeRefreshLayout.OnRefreshListener {
     public AlbunesFragmentImpl() {
         // Required empty public constructor
     }
@@ -61,9 +63,10 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
         recyclerView = binding.recyclerView; // Accedemos a las vistas a través del objeto de ViewBinding
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        binding.swipe.setOnRefreshListener(this);
+
         showLoading();
         albunespresenter.onAlbumsFetched();
-
         adapter = new AlbunesAdapter();
         recyclerView.setAdapter(adapter);
 
@@ -183,4 +186,9 @@ public class AlbunesFragmentImpl extends Fragment implements AlbunesFragment {
 
     }
 
+    @Override
+    public void onRefresh() {
+        albunespresenter.onAlbumsFetched();
+        binding.swipe.setRefreshing(false);
+    }
 }

@@ -10,7 +10,7 @@ import com.sfr.practicas_signlab.login.interactor.LoginInteractor;
 import com.sfr.practicas_signlab.login.view.LoginView;
 
 import javax.inject.Inject;
-public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnGetLoginCallBacks{
+public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnGetLoginCallBacks {
     @Nullable
     @Inject
     LoginView loginview;
@@ -48,16 +48,6 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnGet
         Log.i("shp", username + password);
         checkCredentials(username, password);
     }
-
-
-/*    @Override
-    public void checkCredentials(String username, String password, LoginInteractor.OnGetLoginCallBacks callBacks) {
-        if (!username.isEmpty() && !password.isEmpty()) {
-            interactor.checkCredentials(username, password, this);
-        } else {
-            mainview.onReedirigiraLoginActivity();
-        }
-    }*/
 
     @Override
     public void onSuccessCredentials(String username, String password) {

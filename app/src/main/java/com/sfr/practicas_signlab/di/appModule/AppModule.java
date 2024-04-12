@@ -2,6 +2,12 @@ package com.sfr.practicas_signlab.di.appModule;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
+import com.sfr.practicas_signlab.detalleusuario.interactor.DetalleUsuarioInteractor;
+import com.sfr.practicas_signlab.detalleusuario.interactor.DetalleUsuarioInteractorImpl;
+import com.sfr.practicas_signlab.detalleusuario.presenter.DetalleUsuarioPresenter;
+import com.sfr.practicas_signlab.detalleusuario.presenter.DetalleUsuarioPresenterImpl;
+import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuario;
+import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuarioView;
 import com.sfr.practicas_signlab.main.view.MainActivity;
 import com.sfr.practicas_signlab.main.view.MainView;
 import com.sfr.practicas_signlab.albunes.interactor.AlbunesInteractorImpl;
@@ -40,6 +46,7 @@ public class AppModule {
     private MainActivity mainactivity;
     private HomeActivity homeactivity;
     private UsuariosFragmentImpl usuariosfragment;
+    private DetalleUsuario detalleusuario;
     private Context context;
 
 
@@ -75,6 +82,11 @@ public class AppModule {
 
     public AppModule(PortadasFragmentImpl portadasfragment, Context context) {
         this.portadasfragment = portadasfragment;
+        this.context = context;
+    }
+
+    public AppModule(DetalleUsuario detalleusuario, Context context) {
+        this.detalleusuario = detalleusuario;
         this.context = context;
     }
 
@@ -128,6 +140,15 @@ public class AppModule {
         return null;
     }
 
+    @Nullable
+    @Provides
+    public DetalleUsuarioView detalleusuario() {
+        if (detalleusuario!=null){
+            return detalleusuario;
+        }
+        return null;
+    }
+
     @Provides
     public LoginPresenter providesLoginPresenterImpl(LoginPresenterImpl presenter) {
         return presenter;
@@ -149,6 +170,11 @@ public class AppModule {
     }
 
     @Provides
+    public DetalleUsuarioPresenter providesDetalleUsuarioPresenterImpl(DetalleUsuarioPresenterImpl presenter){
+        return presenter;
+    }
+
+    @Provides
     public LoginInteractor providesLoginInteractorImpl(LoginInteractorImpl interactor) {
         return interactor;
     }
@@ -165,6 +191,11 @@ public class AppModule {
 
     @Provides
     public AlbunesInteractor providesAlbunesInteractorImpl(AlbunesInteractorImpl interactor){
+        return interactor;
+    }
+
+    @Provides
+    public DetalleUsuarioInteractor providesDetalleUsuarioInteractorImpl(DetalleUsuarioInteractorImpl interactor){
         return interactor;
     }
 

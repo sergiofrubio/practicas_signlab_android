@@ -30,7 +30,7 @@ public class AlbunesInteractorImpl implements AlbunesInteractor {
                 if(response.isSuccessful()){
                     callBacks.onAlbumSuccessCallBacks(new ArrayList<Album>(response.body()));
                 }else{
-                    callBacks.onAlbumErrorCallBacks(response.code());
+                    callBacks.onErrorCallBacks(response.code());
                 }
             }
 

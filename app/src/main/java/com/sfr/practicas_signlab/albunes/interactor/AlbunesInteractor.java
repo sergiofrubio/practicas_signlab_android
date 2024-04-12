@@ -14,7 +14,7 @@ public interface AlbunesInteractor {
 
     interface OnGetAlbumsCallBacks {
         void onAlbumSuccessCallBacks(ArrayList<Album> albums);
-        void onAlbumErrorCallBacks(int code);
+        void onErrorCallBacks(int code);
     }
 
     interface OnGetUsersCallBacks {

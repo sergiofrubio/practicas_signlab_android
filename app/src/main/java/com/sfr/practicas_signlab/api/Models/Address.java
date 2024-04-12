@@ -1,9 +1,14 @@
 package com.sfr.practicas_signlab.api.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Address {
+public class Address implements Parcelable {
     @SerializedName("street")
     @Expose
     private String street;
@@ -50,5 +55,38 @@ public class Address {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    // Implementación de Parcelable
+    protected Address(Parcel in) {
+        street = in.readString();
+        city = in.readString();
+        zipcode = in.readString();
+        suite = in.readString();
+    }
+
+    public static final Creator<Address> CREATOR = new Creator<Address>() {
+        @Override
+        public Address createFromParcel(Parcel in) {
+            return new Address(in);
+        }
+
+        @Override
+        public Address[] newArray(int size) {
+            return new Address[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(street);
+        dest.writeString(city);
+        dest.writeString(zipcode);
+        dest.writeString(suite);
     }
 }

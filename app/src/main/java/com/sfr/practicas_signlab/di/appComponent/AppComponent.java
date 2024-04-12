@@ -1,5 +1,6 @@
 package com.sfr.practicas_signlab.di.appComponent;
 
+import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuario;
 import com.sfr.practicas_signlab.main.view.MainActivity;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
@@ -16,14 +17,10 @@ import dagger.Component;
 @Component(modules = {AppModule.class, SharedPreferencesModule.class})
 public interface AppComponent {
     void inject(MainActivity mainactivity);
-
     void inject(LoginActivity loginactivity);
-
     void inject(HomeActivity homeactivity);
-
     void inject(AlbunesFragmentImpl albunesfragment);
-
     void inject(PortadasFragmentImpl portadasfragment);
-
     void inject(UsuariosFragmentImpl usuariosfragment);
+    void inject(DetalleUsuario detalleusuario);
 }

@@ -22,7 +22,7 @@ public class AlbunesPresenterImpl implements AlbunesPresenter, AlbunesInteractor
     @Override
     public void onAlbumsFetched() {
         albunesinteractor.getAlbumsFromApi(this, this);
-        albunesinteractor.getUsersFromApi((AlbunesInteractor.OnGetUsersCallBacks) this, this);
+        albunesinteractor.getUsersFromApi(this, this);
     }
 
     @Override
@@ -30,12 +30,6 @@ public class AlbunesPresenterImpl implements AlbunesPresenter, AlbunesInteractor
         // Log.i("respuesta", String.valueOf(albums));
         view.showAlbums(albums);
     }
-
-    @Override
-    public void onAlbumErrorCallBacks(int code) {
-
-    }
-
 
     @Override
     public void onSuccessCallBacks(ArrayList<User> users) {
