@@ -44,25 +44,26 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
         setContentView(binding.getRoot());
         initInjection();
 
-        recyclerViewPosts = binding.recyclerViewPosts;
-        recyclerViewTodos = binding.recyclerViewTareas;
-        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewTodos.setLayoutManager(new LinearLayoutManager(this));
-
         // Recibir el objeto User pasado desde UsuariosFragmentImpl
         user = getIntent().getParcelableExtra("user");
 
-        binding.textViewUsername.setText(user.getName());
-        binding.postslayout.setOnRefreshListener(this);
-        binding.tareasslayout.setOnRefreshListener(this);
+        recyclerViewPosts = binding.recyclerViewposts;
+        recyclerViewTodos = binding.recyclerViewtodos;
+        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewTodos.setLayoutManager(new LinearLayoutManager(this));
 
+        binding.textViewUsername.setText(user.getName());
+        binding.swiperefreshposts.setOnRefreshListener(this);
+        binding.swiperefreshtodos.setOnRefreshListener(this);
+
+        presenter.onPostsFetched(user.getId());
         postsAdapter = new PostsAdapter();
         recyclerViewPosts.setAdapter(postsAdapter);
+
+        presenter.onTodosFetched(user.getId());
         tareasAdapter = new TodosAdapter();
         recyclerViewTodos.setAdapter(tareasAdapter);
 
-        presenter.onPostsFetched(user.getId());
-        presenter.onTodosFetched(user.getId());
     }
 
     private void initInjection() {
@@ -79,12 +80,12 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
-        if(binding.postslayout.isRefreshing()){
-            binding.postslayout.setRefreshing(false);
+        if(binding.swiperefreshposts.isRefreshing()){
+            binding.swiperefreshposts.setRefreshing(false);
         }
 
-        if (binding.tareasslayout.isRefreshing()) {
-            binding.tareasslayout.setRefreshing(false);
+        if (binding.swiperefreshtodos.isRefreshing()) {
+            binding.swiperefreshtodos.setRefreshing(false);
         }
 
     }
