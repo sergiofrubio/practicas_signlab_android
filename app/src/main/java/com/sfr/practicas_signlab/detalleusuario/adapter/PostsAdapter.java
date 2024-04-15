@@ -49,8 +49,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         }
 
         public void bind(Post post) {
-            binding.textViewTitle.setText(post.getTitle());
-            binding.textViewBody.setText(post.getBody());
+            binding.textViewBody.setText(post.getTitle());
             // Puedes configurar más vistas aquí
         }
     }

@@ -43,8 +43,7 @@ public class TodosAdapter extends RecyclerView.Adapter<TodosAdapter.TodoViewHold
         }
 
         public void bind(Todo todo) {
-            binding.textViewTitle.setText(todo.getTitle());
-            binding.textViewCompleted.setText(todo.isCompleted());
+            binding.textViewCompleted.setText(todo.getTitle());
             // Puedes configurar más vistas aquí
         }
     }
