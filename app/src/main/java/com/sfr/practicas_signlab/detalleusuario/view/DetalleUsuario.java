@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, DetalleUsuarioView {
+public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, DetalleUsuarioView, TodosAdapter.OnTodoCheckedChangeListener {
     private ActivityDetalleusuarioBinding binding;
     private User user;
     private RecyclerView recyclerViewPosts;
@@ -62,6 +62,7 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
 
         presenter.onTodosFetched(user.getId());
         tareasAdapter = new TodosAdapter();
+        tareasAdapter.setOnTodoCheckedChangeListener(this);
         recyclerViewTodos.setAdapter(tareasAdapter);
 
     }
@@ -104,5 +105,13 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
         postsAdapter.setPosts(posts);
         postsAdapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onTodoCheckedChanged(int position, boolean isChecked) {
+        // Actualizar el estado de completado de la tarea en la lista de tareas según sea necesario
+        Todo todo = tareasAdapter.getTodos().get(position);
+        todo.setCompleted(isChecked);
+        Log.i("checkboxtareas", ""+todo.isCompleted());
     }
 }

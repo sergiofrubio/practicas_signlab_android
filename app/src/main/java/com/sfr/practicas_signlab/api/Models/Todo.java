@@ -44,13 +44,12 @@ public class Todo {
         this.title = title;
     }
 
-    public String isCompleted() {
+    public boolean isCompleted() {
         if (completed) {
-            return "Completed";
+            return true;
         } else {
-            return "Not completed";
+            return false;
         }
-
     }
 
     public void setCompleted(boolean completed) {

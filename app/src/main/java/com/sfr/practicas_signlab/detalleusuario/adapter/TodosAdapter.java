@@ -10,9 +10,22 @@ import java.util.ArrayList;
 
 public class TodosAdapter extends RecyclerView.Adapter<TodosAdapter.TodoViewHolder> {
     private ArrayList<Todo> todos;
+    private static OnTodoCheckedChangeListener listener;
+
+    public interface OnTodoCheckedChangeListener {
+        void onTodoCheckedChanged(int position, boolean isChecked);
+    }
 
     public void setTodos(ArrayList<Todo> todos) {
         this.todos = todos;
+    }
+
+    public void setOnTodoCheckedChangeListener(OnTodoCheckedChangeListener listener) {
+        this.listener = listener;
+    }
+
+    public ArrayList<Todo> getTodos() {
+        return todos;
     }
 
     @NonNull
@@ -44,7 +57,13 @@ public class TodosAdapter extends RecyclerView.Adapter<TodosAdapter.TodoViewHold
 
         public void bind(Todo todo) {
             binding.textViewCompleted.setText(todo.getTitle());
-            // Puedes configurar más vistas aquí
+            binding.checkBox.setChecked(todo.isCompleted());
+
+            binding.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (listener != null) {
+                    listener.onTodoCheckedChanged(getAdapterPosition(), isChecked);
+                }
+            });
         }
     }
 }
