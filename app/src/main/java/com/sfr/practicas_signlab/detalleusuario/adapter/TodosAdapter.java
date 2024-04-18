@@ -1,6 +1,7 @@
 package com.sfr.practicas_signlab.detalleusuario.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,19 +14,12 @@ public class TodosAdapter extends RecyclerView.Adapter<TodosAdapter.TodoViewHold
     private static OnTodoCheckedChangeListener listener;
 
     public interface OnTodoCheckedChangeListener {
-        void onTodoCheckedChanged(int position, boolean isChecked);
+        void onTodoCheckedChanged(Todo todo);
     }
 
-    public void setTodos(ArrayList<Todo> todos) {
-        this.todos = todos;
-    }
-
-    public void setOnTodoCheckedChangeListener(OnTodoCheckedChangeListener listener) {
+    public TodosAdapter (OnTodoCheckedChangeListener listener, ArrayList<Todo> todos) {
         this.listener = listener;
-    }
-
-    public ArrayList<Todo> getTodos() {
-        return todos;
+        this.todos = todos;
     }
 
     @NonNull
@@ -59,9 +53,10 @@ public class TodosAdapter extends RecyclerView.Adapter<TodosAdapter.TodoViewHold
             binding.textViewCompleted.setText(todo.getTitle());
             binding.checkBox.setChecked(todo.isCompleted());
 
-            binding.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (listener != null) {
-                    listener.onTodoCheckedChanged(getAdapterPosition(), isChecked);
+            binding.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onTodoCheckedChanged(todo);
                 }
             });
         }

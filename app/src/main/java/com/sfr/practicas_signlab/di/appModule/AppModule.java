@@ -2,6 +2,13 @@ package com.sfr.practicas_signlab.di.appModule;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
+
+import com.sfr.practicas_signlab.detallepost.interactor.DetallePostInteractor;
+import com.sfr.practicas_signlab.detallepost.interactor.DetallePostInteractorImpl;
+import com.sfr.practicas_signlab.detallepost.presenter.DetallePostPresenter;
+import com.sfr.practicas_signlab.detallepost.presenter.DetallePostPresenterImpl;
+import com.sfr.practicas_signlab.detallepost.view.DetallePostActivity;
+import com.sfr.practicas_signlab.detallepost.view.DetallePostView;
 import com.sfr.practicas_signlab.detalleusuario.interactor.DetalleUsuarioInteractor;
 import com.sfr.practicas_signlab.detalleusuario.interactor.DetalleUsuarioInteractorImpl;
 import com.sfr.practicas_signlab.detalleusuario.presenter.DetalleUsuarioPresenter;
@@ -47,6 +54,7 @@ public class AppModule {
     private HomeActivity homeactivity;
     private UsuariosFragmentImpl usuariosfragment;
     private DetalleUsuario detalleusuario;
+    private DetallePostActivity detallePostActivity;
     private Context context;
 
 
@@ -87,6 +95,11 @@ public class AppModule {
 
     public AppModule(DetalleUsuario detalleusuario, Context context) {
         this.detalleusuario = detalleusuario;
+        this.context = context;
+    }
+
+    public AppModule(DetallePostActivity detallePostActivity, Context context){
+        this.detallePostActivity = detallePostActivity;
         this.context = context;
     }
 
@@ -149,6 +162,15 @@ public class AppModule {
         return null;
     }
 
+    @Nullable
+    @Provides
+    public DetallePostView detallePostView(){
+        if(detallePostActivity!=null){
+            return detallePostActivity;
+        }
+        return null;
+    }
+
     @Provides
     public LoginPresenter providesLoginPresenterImpl(LoginPresenterImpl presenter) {
         return presenter;
@@ -175,6 +197,11 @@ public class AppModule {
     }
 
     @Provides
+    public DetallePostPresenter providesDetallePostPresenterImpl(DetallePostPresenterImpl presenter){
+        return presenter;
+    }
+
+    @Provides
     public LoginInteractor providesLoginInteractorImpl(LoginInteractorImpl interactor) {
         return interactor;
     }
@@ -196,6 +223,11 @@ public class AppModule {
 
     @Provides
     public DetalleUsuarioInteractor providesDetalleUsuarioInteractorImpl(DetalleUsuarioInteractorImpl interactor){
+        return interactor;
+    }
+
+    @Provides
+    public DetallePostInteractor providesDetallePostInteractorImpl(DetallePostInteractorImpl interactor){
         return interactor;
     }
 

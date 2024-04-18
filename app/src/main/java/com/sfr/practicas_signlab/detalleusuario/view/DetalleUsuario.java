@@ -2,14 +2,12 @@ package com.sfr.practicas_signlab.detalleusuario.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.sfr.practicas_signlab.api.Models.Post;
 import com.sfr.practicas_signlab.api.Models.Todo;
 import com.sfr.practicas_signlab.api.Models.User;
@@ -22,9 +20,7 @@ import com.sfr.practicas_signlab.di.appComponent.DaggerAppComponent;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
 import com.sfr.practicas_signlab.home.view.HomeActivity;
-
 import java.util.ArrayList;
-
 import javax.inject.Inject;
 
 public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, DetalleUsuarioView, TodosAdapter.OnTodoCheckedChangeListener {
@@ -34,6 +30,7 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
     private RecyclerView recyclerViewTodos;
     private TodosAdapter tareasAdapter;
     private PostsAdapter postsAdapter;
+    private ActionBar actionBar;
     @Inject
     DetalleUsuarioPresenter presenter;
 
@@ -43,6 +40,10 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
         binding = ActivityDetalleusuarioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initInjection();
+
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Detalle de usuario");
 
         // Recibir el objeto User pasado desde UsuariosFragmentImpl
         user = getIntent().getParcelableExtra("user");
@@ -61,9 +62,7 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
         recyclerViewPosts.setAdapter(postsAdapter);
 
         presenter.onTodosFetched(user.getId());
-        tareasAdapter = new TodosAdapter();
-        tareasAdapter.setOnTodoCheckedChangeListener(this);
-        recyclerViewTodos.setAdapter(tareasAdapter);
+
 
     }
 
@@ -93,25 +92,23 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
 
     @Override
     public void showTodos(ArrayList<Todo> todos) {
-        Log.i("infotodos", String.valueOf(todos));
-        tareasAdapter.setTodos(todos);
+        tareasAdapter = new TodosAdapter(this, todos);
+        recyclerViewTodos.setAdapter(tareasAdapter);
+        //tareasAdapter.setTodos(todos);
         tareasAdapter.notifyDataSetChanged();
 
     }
 
     @Override
     public void showPosts(ArrayList<Post> posts) {
-        Log.i("infoposts", String.valueOf(posts));
         postsAdapter.setPosts(posts);
         postsAdapter.notifyDataSetChanged();
 
     }
 
     @Override
-    public void onTodoCheckedChanged(int position, boolean isChecked) {
+    public void onTodoCheckedChanged(Todo todo) {
         // Actualizar el estado de completado de la tarea en la lista de tareas según sea necesario
-        Todo todo = tareasAdapter.getTodos().get(position);
-        todo.setCompleted(isChecked);
-        Log.i("checkboxtareas", ""+todo.isCompleted());
+        todo.setCompleted(!todo.isCompleted());
     }
 }

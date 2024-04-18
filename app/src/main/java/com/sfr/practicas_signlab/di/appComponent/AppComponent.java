@@ -1,5 +1,6 @@
 package com.sfr.practicas_signlab.di.appComponent;
 
+import com.sfr.practicas_signlab.detallepost.view.DetallePostActivity;
 import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuario;
 import com.sfr.practicas_signlab.main.view.MainActivity;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
@@ -23,4 +24,5 @@ public interface AppComponent {
     void inject(PortadasFragmentImpl portadasfragment);
     void inject(UsuariosFragmentImpl usuariosfragment);
     void inject(DetalleUsuario detalleusuario);
+    void inject(DetallePostActivity detallePostActivity);
 }

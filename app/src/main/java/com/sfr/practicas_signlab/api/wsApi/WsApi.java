@@ -1,6 +1,7 @@
 package com.sfr.practicas_signlab.api.wsApi;
 
 import com.sfr.practicas_signlab.api.Models.Album;
+import com.sfr.practicas_signlab.api.Models.Comment;
 import com.sfr.practicas_signlab.api.Models.Photo;
 import com.sfr.practicas_signlab.api.Models.Post;
 import com.sfr.practicas_signlab.api.Models.Todo;
@@ -26,4 +27,7 @@ public interface WsApi {
 
     @GET(Constantes.GET_TODOS)
     Call<List<Todo>> getUserTodos(@Query("userId") int userId);
+
+    @GET(Constantes.GET_COMMENTS)
+    Call<List<Comment>> getPostComments(@Query("postId") int postId);
 }
