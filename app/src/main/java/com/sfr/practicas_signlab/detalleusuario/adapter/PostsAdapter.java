@@ -1,6 +1,7 @@
 package com.sfr.practicas_signlab.detalleusuario.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -8,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sfr.practicas_signlab.api.Models.Photo;
 import com.sfr.practicas_signlab.api.Models.Post;
+import com.sfr.practicas_signlab.api.Models.User;
 import com.sfr.practicas_signlab.databinding.ItemPhotoBinding;
 import com.sfr.practicas_signlab.databinding.ItemPostBinding;
+import com.sfr.practicas_signlab.usuarios.adapters.UsuariosAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -17,8 +20,18 @@ import java.util.ArrayList;
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
     private ArrayList<Post> posts;
 
+    private OnItemClickListener itemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Post post);
+    }
+
     public void setPosts(ArrayList<Post> posts) {
         this.posts = posts;
+    }
+
+    public void setOnItemClickListener(PostsAdapter.OnItemClickListener listener) {
+        this.itemClickListener = listener;
     }
 
     @NonNull
@@ -33,6 +46,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         Post post = posts.get(position);
         // Configurar vistas con datos de usuario
         holder.bind(post);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClick(post);
+                }
+            }
+        });
     }
 
     @Override

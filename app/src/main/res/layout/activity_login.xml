@@ -42,8 +42,7 @@
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Contraseña"
-            android:password="true" />
+            android:hint="Contraseña" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

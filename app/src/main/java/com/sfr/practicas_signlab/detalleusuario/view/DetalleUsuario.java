@@ -2,6 +2,7 @@ package com.sfr.practicas_signlab.detalleusuario.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.sfr.practicas_signlab.api.Models.Post;
 import com.sfr.practicas_signlab.api.Models.Todo;
 import com.sfr.practicas_signlab.api.Models.User;
 import com.sfr.practicas_signlab.databinding.ActivityDetalleusuarioBinding;
+import com.sfr.practicas_signlab.detallepost.view.DetallePostActivity;
 import com.sfr.practicas_signlab.detalleusuario.adapter.PostsAdapter;
 import com.sfr.practicas_signlab.detalleusuario.adapter.TodosAdapter;
 import com.sfr.practicas_signlab.detalleusuario.presenter.DetalleUsuarioPresenter;
@@ -23,7 +25,7 @@ import com.sfr.practicas_signlab.home.view.HomeActivity;
 import java.util.ArrayList;
 import javax.inject.Inject;
 
-public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, DetalleUsuarioView, TodosAdapter.OnTodoCheckedChangeListener {
+public class DetalleUsuario extends AppCompatActivity implements PostsAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, DetalleUsuarioView, TodosAdapter.OnTodoCheckedChangeListener {
     private ActivityDetalleusuarioBinding binding;
     private User user;
     private RecyclerView recyclerViewPosts;
@@ -63,6 +65,8 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
 
         presenter.onTodosFetched(user.getId());
 
+        postsAdapter.setOnItemClickListener(this);
+
 
     }
 
@@ -72,10 +76,6 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
                 .sharedPreferencesModule(new SharedPreferencesModule(this))
                 .build();
         appComponent.inject(this);
-    }
-
-    public void onGoBack(View view) {
-        startActivity(new Intent(this, HomeActivity.class));
     }
 
     @Override
@@ -110,5 +110,25 @@ public class DetalleUsuario extends AppCompatActivity implements SwipeRefreshLay
     public void onTodoCheckedChanged(Todo todo) {
         // Actualizar el estado de completado de la tarea en la lista de tareas según sea necesario
         todo.setCompleted(!todo.isCompleted());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Manejar el evento de hacer clic en el botón de retroceso
+                startActivity(new Intent(this, HomeActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onItemClick(Post post) {
+        Intent intent = new Intent(this, DetallePostActivity.class);
+        intent.putExtra("post", post);
+        startActivity(intent);
+
     }
 }

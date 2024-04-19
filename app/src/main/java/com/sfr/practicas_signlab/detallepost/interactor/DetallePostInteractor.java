@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface DetallePostInteractor {
 
-    void getCommentsFromApi(int postId, onGetCommentsCallbacks callbacks);
+    void getCommentsFromApi(int postId, onGetCommentsCallbacks callbacks, OnErrorServer errorServer);
 
     interface onGetCommentsCallbacks {
         void onCommentsSuccessCallBacks(ArrayList<Comment> comments);

@@ -23,7 +23,7 @@ public class DetallePostPresenterImpl implements DetallePostPresenter, DetallePo
 
     @Override
     public void onCommentsSuccessCallBacks(ArrayList<Comment> comments) {
-
+        view.ShowComments(comments);
     }
 
     @Override
@@ -38,6 +38,7 @@ public class DetallePostPresenterImpl implements DetallePostPresenter, DetallePo
 
     @Override
     public void onCommentsFetched(int postId) {
+        interactor.getCommentsFromApi(postId, this, this);
 
     }
 }
