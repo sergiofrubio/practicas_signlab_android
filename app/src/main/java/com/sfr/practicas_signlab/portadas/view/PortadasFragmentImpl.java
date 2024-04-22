@@ -63,8 +63,6 @@ public class PortadasFragmentImpl extends Fragment implements PortadasFragment, 
 
         showLoading();
         portadaspresenter.onPhotosFetched();
-        adapter = new PortadasAdapter();
-        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -80,9 +78,9 @@ public class PortadasFragmentImpl extends Fragment implements PortadasFragment, 
     @Override
     public void showPhotos(ArrayList<Photo> photos) {
         hideLoading();
-        adapter.setPhotos(photos);
+        adapter = new PortadasAdapter(photos);
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
         // Ocultar el SwipeRefreshLayout una vez que se han cargado las fotos
 
     }

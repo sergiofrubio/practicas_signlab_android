@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
 public class Todo {
     @SerializedName("userId")
     @Expose
-    private String userId;
+    private int userId;
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private int id;
 
     @SerializedName("title")
     @Expose
@@ -20,19 +20,19 @@ public class Todo {
     @Expose
     private boolean completed;
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

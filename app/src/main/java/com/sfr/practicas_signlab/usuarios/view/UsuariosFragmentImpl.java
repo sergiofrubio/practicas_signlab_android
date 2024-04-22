@@ -10,17 +10,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 import com.sfr.practicas_signlab.api.Models.User;
 import com.sfr.practicas_signlab.databinding.FragmentUsuariosBinding;
-import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuario;
+import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuarioActivity;
 import com.sfr.practicas_signlab.di.appComponent.AppComponent;
 import com.sfr.practicas_signlab.di.appComponent.DaggerAppComponent;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.ConnectionModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
-import com.sfr.practicas_signlab.home.view.HomeActivity;
-import com.sfr.practicas_signlab.login.view.LoginActivity;
 import com.sfr.practicas_signlab.usuarios.adapters.UsuariosAdapter;
 import com.sfr.practicas_signlab.usuarios.presenter.UsuariosPresenter;
 
@@ -65,11 +63,6 @@ public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment, 
 
         showLoading();
         usuariospresenter.onUsersFetched();
-        adapter = new UsuariosAdapter();
-        recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(this);
-
-
         return view;
     }
     
@@ -87,7 +80,8 @@ public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment, 
     public void showUsers(ArrayList<User> users) {
         hideLoading();
         // Pasar los datos al adaptador
-        adapter.setUsers(users);
+        adapter = new UsuariosAdapter(users, this);
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
     }
@@ -109,7 +103,7 @@ public class UsuariosFragmentImpl extends Fragment implements UsuariosFragment, 
 
     @Override
     public void onItemClick(User user) {
-        Intent intent = new Intent(requireContext(), DetalleUsuario.class);
+        Intent intent = new Intent(requireContext(), DetalleUsuarioActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);
 

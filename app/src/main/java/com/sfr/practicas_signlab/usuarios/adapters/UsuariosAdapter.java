@@ -21,6 +21,11 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
         this.users = users;
     }
 
+    public UsuariosAdapter(ArrayList<User> users, OnItemClickListener itemClickListener){
+        this.users=users;
+        this.itemClickListener=itemClickListener;
+    }
+
     @NonNull
     @Override
     public UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

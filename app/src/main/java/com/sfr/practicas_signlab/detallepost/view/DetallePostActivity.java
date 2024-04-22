@@ -14,11 +14,13 @@ import com.sfr.practicas_signlab.api.Models.Post;
 import com.sfr.practicas_signlab.databinding.ActivityDetallepostBinding;
 import com.sfr.practicas_signlab.detallepost.adapter.CommentsAdapter;
 import com.sfr.practicas_signlab.detallepost.presenter.DetallePostPresenter;
-import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuario;
+import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuarioActivity;
 import com.sfr.practicas_signlab.di.appComponent.AppComponent;
 import com.sfr.practicas_signlab.di.appComponent.DaggerAppComponent;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
+import com.sfr.practicas_signlab.home.view.HomeActivity;
+
 import java.util.ArrayList;
 import javax.inject.Inject;
 
@@ -42,6 +44,8 @@ public class DetallePostActivity extends AppCompatActivity implements DetallePos
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Detalle de post");
 
+        binding.swiperefresh.setOnRefreshListener(this);
+
         post = getIntent().getParcelableExtra("post");
 
         binding.textViewTitutlo.setText(post.getTitle());
@@ -50,7 +54,7 @@ public class DetallePostActivity extends AppCompatActivity implements DetallePos
         recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        presenter.onCommentsFetched(Integer.parseInt(post.getId()));
+        presenter.onCommentsFetched(post.getId());
 
     }
 
@@ -75,7 +79,7 @@ public class DetallePostActivity extends AppCompatActivity implements DetallePos
         switch (item.getItemId()) {
             case android.R.id.home:
                 // Manejar el evento de hacer clic en el botón de retroceso
-                startActivity(new Intent(this, DetalleUsuario.class));
+                startActivity(new Intent(this, DetalleUsuarioActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -84,7 +88,7 @@ public class DetallePostActivity extends AppCompatActivity implements DetallePos
 
     @Override
     public void onRefresh() {
-        presenter.onCommentsFetched(Integer.parseInt(post.getId()));
+        presenter.onCommentsFetched(post.getId());
         binding.swiperefresh.setRefreshing(false);
 
     }

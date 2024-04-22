@@ -9,7 +9,12 @@ import com.sfr.practicas_signlab.api.Models.User;
 import com.sfr.practicas_signlab.utils.Constantes;
 import java.util.List;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface WsApi {
@@ -30,4 +35,23 @@ public interface WsApi {
 
     @GET(Constantes.GET_COMMENTS)
     Call<List<Comment>> getPostComments(@Query("postId") int postId);
+
+    @FormUrlEncoded
+    @PUT(Constantes.UPDATE_POST)
+    Call<Post> updatePost(
+            @Path("id") int postId,
+            @Field("id") int id,
+            @Field("title") String title,
+            @Field("body") String body,
+            @Field("userId") int userId
+    );
+
+    @FormUrlEncoded
+    @POST(Constantes.CREATE_POST)
+    Call<Post> createPost(
+            @Field("userId") int userId,
+            @Field("title") String title,
+            @Field("body") String body
+    );
+
 }

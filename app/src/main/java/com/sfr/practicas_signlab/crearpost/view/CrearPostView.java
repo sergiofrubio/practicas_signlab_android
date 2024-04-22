@@ -1,10 +1,8 @@
-package com.sfr.practicas_signlab.editarpost.view;
+package com.sfr.practicas_signlab.crearpost.view;
 
 import com.sfr.practicas_signlab.api.Models.Post;
 
-import retrofit2.Response;
-
-public interface EditarPostView {
+public interface CrearPostView {
     void showAnswer(String s);
 
     void onShowSuccessData(Post response);

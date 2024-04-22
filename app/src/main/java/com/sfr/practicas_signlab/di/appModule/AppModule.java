@@ -3,6 +3,12 @@ package com.sfr.practicas_signlab.di.appModule;
 import android.content.Context;
 import androidx.annotation.Nullable;
 
+import com.sfr.practicas_signlab.crearpost.interactor.CrearPostInteractor;
+import com.sfr.practicas_signlab.crearpost.interactor.CrearPostInteractorImpl;
+import com.sfr.practicas_signlab.crearpost.presenter.CrearPostPresenter;
+import com.sfr.practicas_signlab.crearpost.presenter.CrearPostPresenterImpl;
+import com.sfr.practicas_signlab.crearpost.view.CrearPostActivity;
+import com.sfr.practicas_signlab.crearpost.view.CrearPostView;
 import com.sfr.practicas_signlab.detallepost.interactor.DetallePostInteractor;
 import com.sfr.practicas_signlab.detallepost.interactor.DetallePostInteractorImpl;
 import com.sfr.practicas_signlab.detallepost.presenter.DetallePostPresenter;
@@ -13,7 +19,7 @@ import com.sfr.practicas_signlab.detalleusuario.interactor.DetalleUsuarioInterac
 import com.sfr.practicas_signlab.detalleusuario.interactor.DetalleUsuarioInteractorImpl;
 import com.sfr.practicas_signlab.detalleusuario.presenter.DetalleUsuarioPresenter;
 import com.sfr.practicas_signlab.detalleusuario.presenter.DetalleUsuarioPresenterImpl;
-import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuario;
+import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuarioActivity;
 import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuarioView;
 import com.sfr.practicas_signlab.editarpost.interactor.EditarPostInteractor;
 import com.sfr.practicas_signlab.editarpost.interactor.EditarPostInteractorImpl;
@@ -59,9 +65,10 @@ public class AppModule {
     private MainActivity mainactivity;
     private HomeActivity homeactivity;
     private UsuariosFragmentImpl usuariosfragment;
-    private DetalleUsuario detalleusuario;
+    private DetalleUsuarioActivity detalleusuario;
     private DetallePostActivity detallePostActivity;
     private EditarPostActivity editarPostActivity;
+    private CrearPostActivity crearPostActivity;
     private Context context;
 
 
@@ -100,7 +107,7 @@ public class AppModule {
         this.context = context;
     }
 
-    public AppModule(DetalleUsuario detalleusuario, Context context) {
+    public AppModule(DetalleUsuarioActivity detalleusuario, Context context) {
         this.detalleusuario = detalleusuario;
         this.context = context;
     }
@@ -112,6 +119,11 @@ public class AppModule {
 
     public AppModule(EditarPostActivity editarPostActivity, Context context){
         this.editarPostActivity = editarPostActivity;
+        this.context=context;
+    }
+
+    public AppModule(CrearPostActivity crearPostActivity, Context context){
+        this.crearPostActivity=crearPostActivity;
         this.context=context;
     }
 
@@ -192,6 +204,15 @@ public class AppModule {
         return null;
     }
 
+    @Nullable
+    @Provides
+    public CrearPostView crearPostView(){
+        if(crearPostActivity!=null){
+            return crearPostActivity;
+        }
+        return null;
+    }
+
     @Provides
     public LoginPresenter providesLoginPresenterImpl(LoginPresenterImpl presenter) {
         return presenter;
@@ -228,6 +249,11 @@ public class AppModule {
     }
 
     @Provides
+    public CrearPostPresenter providesCrearPostPresenterImpl(CrearPostPresenterImpl presenter){
+        return presenter;
+    }
+
+    @Provides
     public LoginInteractor providesLoginInteractorImpl(LoginInteractorImpl interactor) {
         return interactor;
     }
@@ -259,6 +285,11 @@ public class AppModule {
 
     @Provides
     public EditarPostInteractor providesEditarPostInteractorImpl(EditarPostInteractorImpl interactor){
+        return interactor;
+    }
+
+    @Provides
+    public CrearPostInteractor providesCrearPostInteractorImpl(CrearPostInteractorImpl interactor){
         return interactor;
     }
 

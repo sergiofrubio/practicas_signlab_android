@@ -2,16 +2,18 @@ package com.sfr.practicas_signlab.detalleusuario.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.sfr.practicas_signlab.R;
 import com.sfr.practicas_signlab.api.Models.Post;
 import com.sfr.practicas_signlab.api.Models.Todo;
 import com.sfr.practicas_signlab.api.Models.User;
+import com.sfr.practicas_signlab.crearpost.view.CrearPostActivity;
 import com.sfr.practicas_signlab.databinding.ActivityDetalleusuarioBinding;
 import com.sfr.practicas_signlab.detallepost.view.DetallePostActivity;
 import com.sfr.practicas_signlab.detalleusuario.adapter.PostsAdapter;
@@ -21,11 +23,12 @@ import com.sfr.practicas_signlab.di.appComponent.AppComponent;
 import com.sfr.practicas_signlab.di.appComponent.DaggerAppComponent;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
+import com.sfr.practicas_signlab.editarpost.view.EditarPostActivity;
 import com.sfr.practicas_signlab.home.view.HomeActivity;
 import java.util.ArrayList;
 import javax.inject.Inject;
 
-public class DetalleUsuario extends AppCompatActivity implements PostsAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, DetalleUsuarioView, TodosAdapter.OnTodoCheckedChangeListener {
+public class DetalleUsuarioActivity extends AppCompatActivity implements PostsAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, DetalleUsuarioView, TodosAdapter.OnTodoCheckedChangeListener, PostsAdapter.OnImageClickListener {
     private ActivityDetalleusuarioBinding binding;
     private User user;
     private RecyclerView recyclerViewPosts;
@@ -60,13 +63,7 @@ public class DetalleUsuario extends AppCompatActivity implements PostsAdapter.On
         binding.swiperefreshtodos.setOnRefreshListener(this);
 
         presenter.onPostsFetched(user.getId());
-        postsAdapter = new PostsAdapter();
-        recyclerViewPosts.setAdapter(postsAdapter);
-
         presenter.onTodosFetched(user.getId());
-
-        postsAdapter.setOnItemClickListener(this);
-
 
     }
 
@@ -94,14 +91,14 @@ public class DetalleUsuario extends AppCompatActivity implements PostsAdapter.On
     public void showTodos(ArrayList<Todo> todos) {
         tareasAdapter = new TodosAdapter(this, todos);
         recyclerViewTodos.setAdapter(tareasAdapter);
-        //tareasAdapter.setTodos(todos);
         tareasAdapter.notifyDataSetChanged();
 
     }
 
     @Override
     public void showPosts(ArrayList<Post> posts) {
-        postsAdapter.setPosts(posts);
+        postsAdapter = new PostsAdapter(posts, this, this);
+        recyclerViewPosts.setAdapter(postsAdapter);
         postsAdapter.notifyDataSetChanged();
 
     }
@@ -114,14 +111,36 @@ public class DetalleUsuario extends AppCompatActivity implements PostsAdapter.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            startActivity(new Intent(this, HomeActivity.class));
+            return super.onOptionsItemSelected(item);
+
+        }
+
+        if (id == R.id.add){
+            Intent intent = new Intent(this, CrearPostActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+
+            return super.onOptionsItemSelected(item);
+
+        }
+        /*switch (item.getItemId()) {
             case android.R.id.home:
                 // Manejar el evento de hacer clic en el botón de retroceso
                 startActivity(new Intent(this, HomeActivity.class));
                 return true;
+            case R.id.add:
+                startActivity(new Intent(this, CrearPostActivity.class));
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
-        }
+        }*/
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -131,4 +150,19 @@ public class DetalleUsuario extends AppCompatActivity implements PostsAdapter.On
         startActivity(intent);
 
     }
+
+    @Override
+    public void onImageClick(Post post) {
+        Intent intent = new Intent(this, EditarPostActivity.class);
+        intent.putExtra("post", post);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalle_usuario, menu);
+        return true;
+    }
+
 }

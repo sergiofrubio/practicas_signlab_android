@@ -28,8 +28,8 @@
 
     <LinearLayout
         android:id="@+id/linearlayoutposts"
-        android:layout_width="415dp"
-        android:layout_height="309dp"
+        android:layout_width="match_parent"
+        android:layout_height="273dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,8 +52,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewposts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 tools:listitem="@layout/item_post" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -62,7 +62,7 @@
 
     <LinearLayout
         android:id="@+id/linearlayouttodos"
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="273dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,8 +86,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewtodos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 tools:listitem="@layout/item_todo" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

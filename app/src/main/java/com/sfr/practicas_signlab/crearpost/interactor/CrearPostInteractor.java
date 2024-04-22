@@ -1,9 +1,9 @@
-package com.sfr.practicas_signlab.editarpost.interactor;
+package com.sfr.practicas_signlab.crearpost.interactor;
 
 import com.sfr.practicas_signlab.api.Models.Post;
 
-public interface EditarPostInteractor {
-    void onSetDataToApi(int postId, int id, String title, String body, int userId, onSetDataToApiCallbacks callBacks, OnErrorServer errorServer);
+public interface CrearPostInteractor {
+    void onSetDataToApi(int userId, String title, String body, CrearPostInteractor.onSetDataToApiCallbacks callBacks, CrearPostInteractor.OnErrorServer errorServer);
 
     interface onSetDataToApiCallbacks {
         void onSetDataToApiSuccessCallbacks(Post response);
@@ -14,3 +14,4 @@ public interface EditarPostInteractor {
         void errorServerMessage(String message);
     }
 }
+

@@ -8,7 +8,8 @@ public class Constantes {
     public static final String GET_POSTS = "posts/";
     public static final String GET_TODOS = "todos/";
     public static final String GET_COMMENTS = "comments/";
-
+    public static final String UPDATE_POST = "posts/{id}";
+    public static final String CREATE_POST = "posts/";
 
 
 }

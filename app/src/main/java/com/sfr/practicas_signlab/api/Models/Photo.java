@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
 public class Photo {
     @SerializedName("albumId")
     @Expose
-    private String albumId;
+    private int albumId;
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private int id;
 
     @SerializedName("title")
     @Expose
@@ -24,19 +24,19 @@ public class Photo {
     @Expose
     private String thumbnailUrl;
 
-    public String getAlbumId() {
+    public int getAlbumId() {
         return albumId;
     }
 
-    public void setAlbumId(String albumId) {
+    public void setAlbumId(int albumId) {
         this.albumId = albumId;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

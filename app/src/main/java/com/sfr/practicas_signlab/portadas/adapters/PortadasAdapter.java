@@ -12,9 +12,10 @@ import java.util.ArrayList;
 public class PortadasAdapter extends RecyclerView.Adapter<PortadasAdapter.PortadaViewHolder> {
     private ArrayList<Photo> photos;
 
-    public void setPhotos(ArrayList<Photo> photos) {
+    public PortadasAdapter(ArrayList<Photo> photos) {
         this.photos = photos;
     }
+
 
     @NonNull
     @Override
@@ -44,7 +45,7 @@ public class PortadasAdapter extends RecyclerView.Adapter<PortadasAdapter.Portad
         }
 
         public void bind(Photo photo) {
-            binding.textViewAlbumId.setText(photo.getAlbumId());
+            binding.textViewAlbumId.setText(String.valueOf(photo.getAlbumId()));
             Picasso.get().load(photo.getUrl()).into(binding.imageView);
             binding.textViewId.setText(String.valueOf(photo.getId()));
             binding.textViewTitle.setText(photo.getTitle());

@@ -19,19 +19,35 @@ import java.util.ArrayList;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
     private ArrayList<Post> posts;
-
+    private Post post;
     private OnItemClickListener itemClickListener;
+    private OnImageClickListener imageClickListener;
 
     public interface OnItemClickListener {
         void onItemClick(Post post);
     }
 
+    public interface OnImageClickListener {
+        void onImageClick(Post post);
+    }
+
+
     public void setPosts(ArrayList<Post> posts) {
         this.posts = posts;
     }
 
-    public void setOnItemClickListener(PostsAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
+    }
+
+    public void setOnImageClickListener(OnImageClickListener listener) {
+        this.imageClickListener = listener;
+    }
+
+    public PostsAdapter(ArrayList<Post> posts, OnItemClickListener onItemClickListener, OnImageClickListener onImageClickListener) {
+        this.posts = posts;
+        this.imageClickListener = onImageClickListener;
+        this.itemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -52,6 +68,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             public void onClick(View v) {
                 if (itemClickListener != null) {
                     itemClickListener.onItemClick(post);
+                }
+            }
+        });
+
+        holder.binding.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imageClickListener != null) {
+                    imageClickListener.onImageClick(post);
                 }
             }
         });

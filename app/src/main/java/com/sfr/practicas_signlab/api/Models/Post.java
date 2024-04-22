@@ -11,11 +11,11 @@ import com.google.gson.annotations.SerializedName;
 public class Post implements Parcelable {
     @SerializedName("userId")
     @Expose
-    private String userId;
+    private int userId;
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private int id;
 
     @SerializedName("title")
     @Expose
@@ -45,19 +45,19 @@ public class Post implements Parcelable {
         this.body = body;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -76,16 +76,16 @@ public class Post implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(userId);
+        dest.writeInt(id);
+        dest.writeInt(userId);
         dest.writeString(title);
         dest.writeString(body);
 
     }
 
     protected Post(Parcel in) {
-        id=in.readString();
-        userId=in.readString();
+        id=in.readInt();
+        userId=in.readInt();
         title=in.readString();
         body=in.readString();
 
