@@ -1,6 +1,7 @@
 package com.sfr.practicas_signlab.editarpost.view;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
@@ -66,5 +67,17 @@ public class EditarPostActivity extends AppCompatActivity implements EditarPostV
     @Override
     public void onShowSuccessData(Post response) {
         setFill(response);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+            return super.onOptionsItemSelected(item);
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

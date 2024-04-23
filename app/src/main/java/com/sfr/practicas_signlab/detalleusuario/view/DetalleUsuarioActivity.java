@@ -114,7 +114,7 @@ public class DetalleUsuarioActivity extends AppCompatActivity implements PostsAd
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-            startActivity(new Intent(this, HomeActivity.class));
+            finish();
             return super.onOptionsItemSelected(item);
 
         }
@@ -123,22 +123,9 @@ public class DetalleUsuarioActivity extends AppCompatActivity implements PostsAd
             Intent intent = new Intent(this, CrearPostActivity.class);
             intent.putExtra("user", user);
             startActivity(intent);
-
             return super.onOptionsItemSelected(item);
 
         }
-        /*switch (item.getItemId()) {
-            case android.R.id.home:
-                // Manejar el evento de hacer clic en el botón de retroceso
-                startActivity(new Intent(this, HomeActivity.class));
-                return true;
-            case R.id.add:
-                startActivity(new Intent(this, CrearPostActivity.class));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }*/
 
         return super.onOptionsItemSelected(item);
     }

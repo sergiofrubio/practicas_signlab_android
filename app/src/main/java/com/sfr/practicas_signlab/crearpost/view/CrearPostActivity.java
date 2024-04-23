@@ -1,6 +1,7 @@
 package com.sfr.practicas_signlab.crearpost.view;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
@@ -37,7 +38,6 @@ public class CrearPostActivity extends AppCompatActivity implements CrearPostVie
 
         user = getIntent().getParcelableExtra("user");
 
-
     }
 
     private void setFill(Post post) {
@@ -65,6 +65,18 @@ public class CrearPostActivity extends AppCompatActivity implements CrearPostVie
     @Override
     public void onShowSuccessData(Post response) {
         setFill(response);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+            return super.onOptionsItemSelected(item);
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

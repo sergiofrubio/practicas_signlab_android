@@ -76,14 +76,14 @@ public class DetallePostActivity extends AppCompatActivity implements DetallePos
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // Manejar el evento de hacer clic en el botón de retroceso
-                startActivity(new Intent(this, DetalleUsuarioActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+            return super.onOptionsItemSelected(item);
+
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
