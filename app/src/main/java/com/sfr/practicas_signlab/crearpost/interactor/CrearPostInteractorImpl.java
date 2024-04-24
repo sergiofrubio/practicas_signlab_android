@@ -31,9 +31,6 @@ public class CrearPostInteractorImpl implements CrearPostInteractor {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if (response.isSuccessful()) {
-                    // La solicitud fue exitosa
-                    // Puedes manejar la respuesta aquí si es necesario
-                    Log.i("m", ""+response.body().getTitle());
                     callBacks.onSetDataToApiSuccessCallbacks(response.body());
 
                 } else {

@@ -1,5 +1,6 @@
 package com.sfr.practicas_signlab.crearpost.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +20,9 @@ import javax.inject.Inject;
 public class CrearPostActivity extends AppCompatActivity implements CrearPostView {
     private ActivityCrearpostBinding binding;
     private ActionBar actionBar;
-    private Post post;
     private User user;
     @Inject
     CrearPostPresenter presenter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +37,6 @@ public class CrearPostActivity extends AppCompatActivity implements CrearPostVie
 
         user = getIntent().getParcelableExtra("user");
 
-    }
-
-    private void setFill(Post post) {
-        binding.editTextTitle.setText(post.getTitle());
-        binding.editTextBody.setText(post.getBody());
     }
 
     private void initInjection() {
@@ -64,7 +58,11 @@ public class CrearPostActivity extends AppCompatActivity implements CrearPostVie
 
     @Override
     public void onShowSuccessData(Post response) {
-        setFill(response);
+        Toast.makeText(this, "Post creado correctamente.", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.putExtra("user", user);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override
@@ -73,7 +71,6 @@ public class CrearPostActivity extends AppCompatActivity implements CrearPostVie
 
         if (id == android.R.id.home) {
             finish();
-            return super.onOptionsItemSelected(item);
 
         }
         return super.onOptionsItemSelected(item);

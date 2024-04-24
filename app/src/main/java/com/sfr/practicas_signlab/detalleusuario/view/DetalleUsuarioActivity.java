@@ -4,6 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -114,21 +119,29 @@ public class DetalleUsuarioActivity extends AppCompatActivity implements PostsAd
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-            finish();
-            return super.onOptionsItemSelected(item);
+            onBackPressed();
 
         }
 
         if (id == R.id.add){
             Intent intent = new Intent(this, CrearPostActivity.class);
             intent.putExtra("user", user);
-            startActivity(intent);
-            return super.onOptionsItemSelected(item);
+            activityResultLauncher.launch(intent);
 
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult o) {
+            if (o.getResultCode() == RESULT_OK){
+                Intent intent  = o.getData();
+                presenter.onPostsFetched(user.getId());
+            }
+        }
+    });
 
     @Override
     public void onItemClick(Post post) {
