@@ -21,6 +21,7 @@ public class CrearPostActivity extends AppCompatActivity implements CrearPostVie
     private ActivityCrearpostBinding binding;
     private ActionBar actionBar;
     private User user;
+    private Post post;
     @Inject
     CrearPostPresenter presenter;
 
@@ -36,6 +37,12 @@ public class CrearPostActivity extends AppCompatActivity implements CrearPostVie
         actionBar.setTitle("Crear post");
 
         user = getIntent().getParcelableExtra("user");
+        post = getIntent().getParcelableExtra("post");
+
+        if(post != null){
+            actionBar.setTitle("Editar post");
+            setField(post);
+        }
 
     }
 
@@ -48,7 +55,20 @@ public class CrearPostActivity extends AppCompatActivity implements CrearPostVie
     }
 
     public void onGuardar(View view){
-        presenter.onGuardar(user.getId(), binding.editTextTitle.getText().toString(), binding.editTextBody.getText().toString());
+        if (post != null) {
+            presenter.onEditPost(post.getId(), post.getId(), binding.editTextTitle.getText().toString(), binding.editTextBody.getText().toString(), post.getUserId());
+            finish();
+        } else {
+            presenter.onAddPost(user.getId(), binding.editTextTitle.getText().toString(), binding.editTextBody.getText().toString());
+            finish();
+        }
+    }
+
+    private void setField(Post post) {
+        binding.editTextTitle.setText(post.getTitle());
+        binding.editTextBody.setText(post.getBody());
+        binding.buttonGuardar.setText("EDITAR POST");
+        binding.textView.setText("Editar Post");
     }
 
     @Override
@@ -58,13 +78,17 @@ public class CrearPostActivity extends AppCompatActivity implements CrearPostVie
 
     @Override
     public void onShowSuccessData(Post response) {
-        Toast.makeText(this, "Post creado correctamente.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent();
-        intent.putExtra("user", user);
-        setResult(RESULT_OK, intent);
-        finish();
+        Toast.makeText(this, "Datos guardados correctamente.", Toast.LENGTH_SHORT).show();
+        if(post != null){
+            setField(post);
+            finish();
+        }else{
+            Intent intent = new Intent();
+            intent.putExtra("user", user);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

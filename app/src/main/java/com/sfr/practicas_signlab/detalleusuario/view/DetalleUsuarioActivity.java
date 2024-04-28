@@ -2,9 +2,9 @@ package com.sfr.practicas_signlab.detalleusuario.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -28,8 +28,6 @@ import com.sfr.practicas_signlab.di.appComponent.AppComponent;
 import com.sfr.practicas_signlab.di.appComponent.DaggerAppComponent;
 import com.sfr.practicas_signlab.di.appModule.AppModule;
 import com.sfr.practicas_signlab.di.appModule.SharedPreferencesModule;
-import com.sfr.practicas_signlab.editarpost.view.EditarPostActivity;
-import com.sfr.practicas_signlab.home.view.HomeActivity;
 import java.util.ArrayList;
 import javax.inject.Inject;
 
@@ -139,6 +137,7 @@ public class DetalleUsuarioActivity extends AppCompatActivity implements PostsAd
             if (o.getResultCode() == RESULT_OK){
                 Intent intent  = o.getData();
                 presenter.onPostsFetched(user.getId());
+                Log.i("msg", "Estoy recargando los post ahora");
             }
         }
     });
@@ -153,7 +152,7 @@ public class DetalleUsuarioActivity extends AppCompatActivity implements PostsAd
 
     @Override
     public void onImageClick(Post post) {
-        Intent intent = new Intent(this, EditarPostActivity.class);
+        Intent intent = new Intent(this, CrearPostActivity.class);
         intent.putExtra("post", post);
         startActivity(intent);
 

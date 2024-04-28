@@ -21,12 +21,6 @@ import com.sfr.practicas_signlab.detalleusuario.presenter.DetalleUsuarioPresente
 import com.sfr.practicas_signlab.detalleusuario.presenter.DetalleUsuarioPresenterImpl;
 import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuarioActivity;
 import com.sfr.practicas_signlab.detalleusuario.view.DetalleUsuarioView;
-import com.sfr.practicas_signlab.editarpost.interactor.EditarPostInteractor;
-import com.sfr.practicas_signlab.editarpost.interactor.EditarPostInteractorImpl;
-import com.sfr.practicas_signlab.editarpost.presenter.EditarPostPresenter;
-import com.sfr.practicas_signlab.editarpost.presenter.EditarPostPresenterImpl;
-import com.sfr.practicas_signlab.editarpost.view.EditarPostActivity;
-import com.sfr.practicas_signlab.editarpost.view.EditarPostView;
 import com.sfr.practicas_signlab.main.view.MainActivity;
 import com.sfr.practicas_signlab.main.view.MainView;
 import com.sfr.practicas_signlab.albunes.interactor.AlbunesInteractorImpl;
@@ -67,7 +61,6 @@ public class AppModule {
     private UsuariosFragmentImpl usuariosfragment;
     private DetalleUsuarioActivity detalleusuario;
     private DetallePostActivity detallePostActivity;
-    private EditarPostActivity editarPostActivity;
     private CrearPostActivity crearPostActivity;
     private Context context;
 
@@ -115,11 +108,6 @@ public class AppModule {
     public AppModule(DetallePostActivity detallePostActivity, Context context){
         this.detallePostActivity = detallePostActivity;
         this.context = context;
-    }
-
-    public AppModule(EditarPostActivity editarPostActivity, Context context){
-        this.editarPostActivity = editarPostActivity;
-        this.context=context;
     }
 
     public AppModule(CrearPostActivity crearPostActivity, Context context){
@@ -197,15 +185,6 @@ public class AppModule {
 
     @Nullable
     @Provides
-    public EditarPostView editarPostView(){
-        if(editarPostActivity!=null){
-            return editarPostActivity;
-        }
-        return null;
-    }
-
-    @Nullable
-    @Provides
     public CrearPostView crearPostView(){
         if(crearPostActivity!=null){
             return crearPostActivity;
@@ -244,11 +223,6 @@ public class AppModule {
     }
 
     @Provides
-    public EditarPostPresenter providesEditarPostPresenterImpl(EditarPostPresenterImpl presenter){
-        return presenter;
-    }
-
-    @Provides
     public CrearPostPresenter providesCrearPostPresenterImpl(CrearPostPresenterImpl presenter){
         return presenter;
     }
@@ -280,11 +254,6 @@ public class AppModule {
 
     @Provides
     public DetallePostInteractor providesDetallePostInteractorImpl(DetallePostInteractorImpl interactor){
-        return interactor;
-    }
-
-    @Provides
-    public EditarPostInteractor providesEditarPostInteractorImpl(EditarPostInteractorImpl interactor){
         return interactor;
     }
 
